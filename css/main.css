@@ -1,0 +1,747 @@
+/* Root variables */
+
+:root{
+    
+      /* colors */
+      --primary-color: #da7531;
+      --primary-color2: #f4931b; 
+      --secondary-color: #FE9E67;
+      --secondary-light: #fad6a9;
+      --darkest-color: #da6931;
+     
+      --extra-grey: #C6BEB8;
+      --shade-one: #0005; 
+      --shade-two: #5550;
+      --shade-three: #101010;
+      --shade-four: #333333;
+      --article-bkgd-color: #C2C2C2;
+      --font-stack: Roboto, sans-serif;
+  
+  
+  
+          /* box shadow preset*/
+          --white-box-shadow: 0 0 .5rem #ffffff;
+          --black-box-shadow: 0 0 0.5rem #0002;
+  
+  
+          /* Heights */
+          --banner-base-height: 50vh;
+          --banner-large-height: 100vh;
+      
+      
+          /* Verticle align */
+          --banner-vertical-align: center;
+      
+      
+          /* Horizontal align */
+          --banner-hor-align: flex-start;
+        
+      
+          /* Text align */
+          --text-align: left;
+  
+          /* small photo */
+          --small-img-size: 35vh;
+  
+          /* font scales major third*/
+          --scale-xl: 2.441rem;
+          --scale-large: 1.953rem;
+          --scale-med: 1.563rem;
+          --scale-small: 1.235rem;
+
+
+          /* Absolute scales*/
+
+          --s1: 0%;
+          --s2: 100%;
+          --s3: 200%;
+          --s4: 300%;
+          --b1: 400%;
+        
+}
+
+
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set core root defaults */
+html {
+  line-height: 1.5;
+  font-family: var(--font-stack)
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  margin: 0;
+}
+
+/* Update default margin */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+ul,
+ol,
+dl,
+dd {
+  margin: 0 0 1.5rem;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a {
+  text-decoration-skip-ink: auto;
+  color: #36BF7F;
+}
+
+a:hover,
+a:focus-visible {
+  color: #D96666;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+svg {
+  fill: currentColor;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Containers ---------- */
+
+.container {
+  width: min(65em, 100%);
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.container--text {
+  width: min(45em, 100%);
+}
+
+
+/* ----------------------------------------------- */
+/*------------------ PAGE 1 ------------------*/
+/* ----------------------------------------------- */
+
+  /* <----- Skip Links -------------------------------> */
+
+.skip-links{
+    padding: 0;
+    margin:0;
+    list-style: none;
+  
+  }
+  
+  .skip-links__link {
+      position: absolute;
+      top: -10rem;
+      left: 0.5em;
+      display: inline-block;
+      padding: 0.55em 1.5em 0.5em;
+      background-color: var(--color-secondary);
+      color: white;
+      border-radius: 0.25em;
+      text-decoration: none;
+      z-index: 10000000;
+  } 
+  
+  .skip-links__link:focus {
+     top: 1rem;
+     color: white;
+  }
+  
+  /* to top */
+  
+  .to-top {
+    position: fixed;
+    bottom: -0.5rem;
+    right: 1.5rem;
+    background-color: var(--primary-color);
+    color: black;
+    font-weight: bold;
+    padding: 0.5rem 0.5rem 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    text-decoration: none;
+    box-shadow: var(--black-box-shadow);
+    z-index: 1001;
+  
+  }
+  
+  .to-top.visible {
+     translate: 0;
+  }
+  
+  .to-top:is(:hover, :focus-visible) {
+    translate: 0;
+    bottom: 0;
+    color: var(--shade-three);
+  }
+  
+
+/* <----- NAVBAR -------------------------------> */
+
+
+/* mobile first*/
+
+.navbar{
+    flex-direction: column;
+    /* background: linear-gradient(to bottom, var(--shade-four), var(--shade-one) ) ; */
+    overflow: hidden;
+    position: fixed;
+    z-index: 1000; 
+    width: 100%;
+    padding: 1rem;
+    /* box-shadow: var(--white-box-shadow); */
+  }
+  
+   .navbar .container{
+    padding: 0;
+    gap: 1.5rem; 
+   
+  }
+  
+  
+  .nav-list{
+    flex-direction: column;
+    text-align: center;
+    margin: 0;
+    padding: 0
+  }
+
+
+   /* nav li hover animation----------------------------- */
+
+  .nav-list li {
+    position: relative;
+  }
+
+  .nav-list-extras li {
+    position: relative;
+  }
+  
+
+  .nav-list li::after {
+    content: '';
+    position: absolute;
+    width: 10%;
+    height: 0.17rem;
+    border-radius: 0.125rem;
+    transition: background-color 0.3s ease; 
+    top: 50%;
+    left: 25%;
+  }
+  
+  
+  
+  .nav-list li:hover::after {
+    /* background-image: url("../content/li_arrow2.png") if you want to use a hover image; 
+    background-size: cover; 
+    background-position: center; */
+    background-color: #fff;
+  }
+  
+    /* nav li hover animation ----------------------------- */
+  
+
+  .logo-head{
+    margin: 1.5rem;
+  }
+  
+  
+  /* things that dont have to be changed with query */
+  
+  .nav-list li{
+    list-style:  none;
+    color: white;
+    padding: 0 1rem;
+    transition: background-color 0.3s; 
+   
+  }
+  
+  .nav-list li .link {
+    text-decoration: none;
+    display: block;
+    padding: 1.5rem;
+    cursor: pointer; 
+   
+  }
+  
+
+  
+  .nav-list li:hover,
+  .nav-list li:focus,
+  .nav-logo:hover,
+  .nav-logo:focus{
+    transform: scale(1.1);
+    transition: transform 0.3s;
+     
+  }
+  
+  
+  .logo-head-div{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 0rem;
+  }
+  
+  .link:hover,
+  .link:focus{
+    color: white;
+  }
+  
+  
+  
+  .nav-logo{
+     width: 3em;
+  }
+  
+  /* Web Media Queries */   
+
+
+  @media only screen and (min-width: 45em){
+    .navbar{
+    
+        display: flex;
+        flex-direction: row;
+        border-top: 0.5rem solid var(--darkest-color);
+       
+    }
+    
+    .navbar .container{
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      
+      align-items: center;  
+
+    }
+    
+    .link{
+      text-decoration: none;
+      color: white; 
+    }
+    
+    .nav-logo {
+        display: flex;
+        flex-direction: row;
+    }
+
+    
+    .nav-list {
+        display: flex;
+        flex-direction: row;
+        margin: 0 ;  
+    }
+
+   
+
+    .nav-list li::after {
+        top: 75%;
+        left: 26%;
+        width: 50%;
+      }
+    
+  }
+
+/* <----- Main Video Container -------------------------------> */
+
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+/* <----- Main BKGD Image Container -------------------------------> */
+
+  .image-container{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  
+ /* about bkgd img */
+  .img-s2{
+     top: var(--s2);
+
+  }
+
+/* products bkgd img */
+
+  .img-s3{
+    top: var(--s3)
+  }
+
+  /* support bkgd img */
+
+  .img-s4{
+    top: var(--s4)
+  }
+
+
+/* <----- BANNER -------------------------------> */
+
+.banner {
+    background: linear-gradient(to bottom, var(--shade-three), var(--shade-one) ) ;
+    background-size: cover; 
+    background-position: bottom;
+    position: relative;
+  }
+
+
+  
+  .banner .container{
+    min-height: var(--banner-base-height);
+    display: flex;
+    justify-content: var(--banner-hor-align);
+    align-items: var(--banner-vertical-align);
+    text-align: var(--text-align);
+    /* padding-top: 3rem; */
+    padding-bottom: 3rem;
+  }
+  
+  .banner__content{
+    width: min(35em, 100%);
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .banner__header{
+    color: var(--secondary-color);
+    font-size: 1.8rem;
+    animation: HeadFadeIn 0.8s ease-in-out forwards;
+    padding-top: 2rem;
+  }
+
+
+  .banner__img {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards ;
+    width: 22rem;
+  
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+        0% {
+            opacity: 0;
+        }
+    }
+
+
+
+    @keyframes HeadFadeIn {
+        0% {
+            
+            opacity: 0;
+            transform: translateX(-10rem);
+
+        }
+        100% {
+            
+            opacity: 1;
+            transform: translateX(0rem);
+        }
+
+    }
+
+    .banner__content .btn {
+        animation: HeadFadeIn 1.2s ease-in-out forwards;
+    }
+
+    .banner__content .btn:hover {
+          background-color: #fad6a9;
+    }
+
+    
+
+  
+  .banner__para{
+    color:white;
+    font-size: 1.2rem;
+    line-height: 2rem ;
+    animation: HeadFadeIn 1s ease-in-out forwards;
+  }
+  
+  .banner--top{
+    --banner-vertical-align: flex-start;
+  } 
+  
+  .banner--bottom{
+    --banner-vertical-align: flex-end;
+  }
+  
+  .banner--center{ 
+    --banner-vertical-align: center;
+    --banner-hor-align: center;
+    --text-align: center;
+  } 
+  
+  .banner--large{
+    min-height: var(--banner-large-height);
+  } 
+  
+  .banner--right{
+    --banner-hor-align: flex-end;
+    --text-align: right;
+    
+  }
+
+
+  /* banner media queries */
+  
+  @media only screen and (min-width: 45em){
+    .banner__content{
+      
+      margin: 0rem;
+    }
+  }
+
+  /* <----- About -------------------------------> */
+  
+  .about-content{
+    /* background: linear-gradient(to bottom, var(--shade-three), var(--shade-one));  */
+    
+  }
+
+  /* <----- Products -------------------------------> */
+
+  .products-content{
+   
+  }
+
+
+
+  /* <----- Support -------------------------------> */
+
+  .support-content{
+    
+  }
+
+
+
+
+  /* <----- FOOTER -------------------------------> */
+
+.footer{
+    background: linear-gradient(to top, var(--shade-four), var(--shade-one) ) ;
+    color: white;
+    border-bottom: 0.5rem solid var(--darkest-color);
+    position: absolute;
+    top: 375%;
+    width: 100%;
+    z-index: 1000;
+  }
+
+
+  .footer .container{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;    
+
+  }
+
+  .footer__logo{
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+
+  }
+
+  .span__title{
+      text-transform: uppercase;
+  } 
+
+  .footer__logo:hover,
+  .footer__logo:focus{
+    
+    transform: scale(1.1);
+    transition: transform 0.3s;
+  }
+
+
+
+  .footer__icon{
+    width: 8em;
+  }
+
+  .footer__nav{
+    border-top: none;
+  }
+
+  .footer__title{
+    font-size: 1.525rem;
+    font-weight: bold;
+    line-height: 1.3;
+  }
+
+  .footer__list{
+    padding-left: 1.5rem;
+    margin: 0;
+    border-left: 0.125rem solid var(--secondary-color);
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+  }
+
+  .footer__link{
+    color: white;
+    text-decoration: none;
+
+  }
+
+  .footer__link:hover,
+  .footer__link:focus{
+    color: var(--secondary-color);
+  }
+
+  .footer-small-links{
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .footer__copyright{
+    padding-bottom: 1rem;
+  }
+
+  .footer__copyright2{
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+  }
+
+  .small-media-logo {
+      padding: 0.5rem;
+      width: 3rem;
+  }
+
+  .small-media-logo:hover,
+  .small-media-logo:focus{
+    
+    transform: scale(1.1);
+    transition: transform 0.3s;
+  }
+
+  /* alt bkgd for contact page */
+
+  .alt-fade-bkgd {
+      background: linear-gradient(to bottom, var(--shade-three), var(--shade-one) )
+  }
+
+
+
+
+  /* footer media queries */
+
+
+  @media only screen and (min-width: 45em){
+
+     .footer .container{
+        flex-direction: row;
+        justify-content: space-between;
+
+     }
+
+     .footer__logo{
+      flex: 2 0;
+      align-self: flex-start;
+     }
+
+     .footer__nav {
+      flex: 2 0;
+     }
+
+
+
+  }
