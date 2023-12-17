@@ -297,8 +297,7 @@ section{
     bottom: -0.5rem;
     right: 1.5rem;
     background-color: var(--primary-color);
-    color: black;
-    font-weight: bold;
+    color: white;
     padding: 0.5rem 0.5rem 1rem;
     border-radius: 0.5rem 0.5rem 0 0;
     text-decoration: none;
@@ -314,21 +313,23 @@ section{
   .to-top:is(:hover, :focus-visible) {
     translate: 0;
     bottom: 0;
-    color: var(--shade-three);
+    color: white;
   }
 
 /* <----- BUTTONS -------------------------------> */
   
   
       .btn{
-        display: inline-block;
+        display: flex;
         border-radius: 0.2rem;
         padding: 1rem 1.5rem;
         margin: 0.2rem;
         text-decoration: none;
-        background-color: var(--darkest-color);
+        background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
         border: none;
         box-shadow: var(--black-box-shadow);
+        color: white;
+        
       }
     
       .btn--secondary{
@@ -340,9 +341,8 @@ section{
 
     .btn:hover,
     .btn:focus{
-      color: black;
-      transform: scale(1.02);
-      transition: ease-in-out 0.3s;
+      transition: ease-in-out 0.3s !important;
+      transform: scale(1.03) !important;
       filter: drop-shadow(0 0.25rem 0.5rem #000000);
       cursor: pointer;
     }
@@ -618,12 +618,13 @@ section{
   
   .banner__content{
     width: min(35em, 100%);
-    background-color: transparent; 
+    /* background-color: transparent; 
     backdrop-filter: blur(1rem);
-    box-shadow: var(--white-box-shadow);
+    box-shadow: var(--white-box-shadow); 
+    border-radius: 3rem;     this is code for blurred transparent div*/ 
     
     padding: 4rem;
-    border-radius: 3rem;
+   
     
 
     display: flex;
@@ -652,11 +653,13 @@ section{
       animation: HeadFadeIn 1.2s ease-in-out forwards; /* needs javascript to toggle the animation class */
     }
 
-    .banner__content .btn:hover {
-          background-color: #fad6a9;
-    }
 
-    
+
+    /* FIX THIS COLOR CONTRAST  */
+    .banner__content .btn:hover {
+          /* background-color: var(--secondary-color); */
+          
+    }
 
   
   .banner__para{
@@ -797,85 +800,33 @@ section{
     background: linear-gradient(to bottom, var(--shade-three), var(--shade-one)); 
     width: 100%; 
     height: 100vh;
-
-    
   }
+
   .products-content .container{
-    background-color: transparent; 
-    backdrop-filter: blur(1rem);
-    box-shadow: var(--white-box-shadow);
-    padding: 6rem 4rem ;
-    border-radius: 3rem;
-  }
-
-  .products-shoes__cont{
    
   }
 
-  .products-shoe__img{
+  .products__h2{
+    color: white;
+    font-size: var(--xxlg);
     filter: drop-shadow(0 0.25rem 0.5rem #000000);
   }
 
-  .products-shoe__subtitle{
-     color: white;
-  }
-
-  .products-shoe__info{
-     color: white;
-     text-align: center;
-     font-style: italic;
-  }
-
-  .forward-arrow{
-     color: white;
-     
-  }
-
-  .back-arrow{
+  .products__btn{
+    padding-left:5rem;
+    padding-right:5rem; 
     color: white;
+    font-size: var(--lg);
+  }
+
+  .products-btn__innerText{
     
   }
 
-  .arrow{
-    /* font-size: 3rem; */
+  .products-content .container button i{
+    font-size: var(--xlg);
+    margin-left: 0.5rem;
   }
-
-
-  .products-shoes-nav-btn__cont a i{
-    font-size: 4rem;
-  }
- 
-
-  /* products media queries */
-
-/* ipad */
-
-  @media only screen and (min-width: 45em){
-
-    .products-content .container{
-     
-    }
-
-
-
-    .products-shoe__img{
-      width: 40rem;
-      padding-bottom: 5rem;
-    }
-
-    .products-shoe__subtitle{
-      font-size: var(--xlg);
-    }
-
-    .products-shoes-nav-btn__cont{
-      /* padding-top: 5rem; */
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: space-around;
-    }
-  }
-
 
 
   /* <----- Support -------------------------------> */
@@ -900,12 +851,83 @@ section{
 
   @media only screen and (min-width: 45em){
     .support-content .container{
-      padding: 10rem;
+      padding: 12rem;
     }
 
 
   } 
  
+/* <--------------------------- Shoes -------------------------------> */
+
+  .shoes .container{
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(1rem);
+    box-shadow: var(--white-box-shadow);
+    padding: 6rem 4rem ;
+    border-radius: 3rem;
+  }
+
+  .shoes__cont{
+   
+  }
+
+  .shoe__img{
+    filter: drop-shadow(0 0.25rem 0.5rem #000000);
+  }
+
+  .shoe__subtitle{
+     color: white;
+  }
+
+  .shoe__info{
+     color: white;
+     text-align: center;
+     font-style: italic;
+  }
+
+  .forward-arrow{
+     color: white;
+     
+  }
+
+  .back-arrow{
+    color: white;
+    
+  }
+
+
+  .shoes-nav-btn__cont a i{
+    font-size: 4rem;
+  }
+ 
+
+  /* products media queries */
+
+/* ipad */
+
+  @media only screen and (min-width: 45em){
+
+    .shoes .container{
+     
+    }
+
+    .shoe__img{
+      width: 40rem;
+      padding-bottom: 5rem;
+    }
+
+    .shoe__subtitle{
+      font-size: var(--xlg);
+    }
+
+    .shoes-nav-btn__cont{
+      /* padding-top: 5rem; */
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: space-around;
+    }
+  }
 
 
 
