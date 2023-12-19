@@ -21,6 +21,7 @@
   
           /* box shadow preset*/
           --white-box-shadow: 0 0 .5rem #ffffff;
+          --white-box-shadow-hover: 0 0 1rem #ffffff;
           --black-box-shadow: 0 0 0.5rem #0002;
   
   
@@ -959,16 +960,68 @@ section{
 
    /* <----------------------------- Store -------------------------------> */
 
+    #store-main{
+      background: linear-gradient(to left, var(--shade-four), var(--shade-three));
+    }
+
+    #store{
+      height: auto;
+    }
+
 
   .store-content{
-    background: linear-gradient(to left, var(--shade-four), var(--shade-three));
+    
+  }
+
+  .store-content__h2{
+      color: white;
+      grid-column: 1/ -1;
+      font-size: var(--xlg);
   }
 
   .store-content .container{
+      display: grid;
+      gap: 3rem;
+      padding-top: 10rem;
+      grid-template-columns: 1fr;
       
   }
 
+  .sneaker-card{
+    /* display: flex; */
+    background-color: transparent; 
+    backdrop-filter: blur(1rem);
+    box-shadow: var(--white-box-shadow); 
+    background: rgba(0, 0, 0, 0.3);;
 
+
+    border-radius: 3rem; 
+    padding:4rem;
+    color: white;
+    text-decoration: none;
+  }
+
+  .sneaker-card__btn{
+     margin-top: 3.5rem;
+     font-size: var(--lg);
+     
+
+  }
+
+  .sneaker-card:hover,
+  .sneaker-card:focus{
+     color: var(--primary-color);
+     box-shadow: var(--white-box-shadow-hover);
+     transition: 0.1s ease-in;
+  }
+
+  @media only screen and (min-width: 45em){
+  .store-content .container{
+    
+      grid-template-columns: 1fr 1fr;
+  }
+
+  }
 
 
 

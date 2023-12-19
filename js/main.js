@@ -62,12 +62,17 @@ fetch(url, options)
         try {
            // Iterate through the products and create elements for each
            data.results.forEach(item => {
-             let sneaker = document.createElement('div'); // add classList ?
+             let sneaker = document.createElement('a'); 
+             sneaker.href = `${item.id}`; // change this to a link to view each shoe individually 
+             sneaker.classList.add('sneaker-card') 
+            //  sneaker.classList.add('flex-center-column') 
              sneaker.innerHTML = `
-               <h2>${item.brand}</h2>
                <img src="${item.image.original}" alt="${item.silhouette}" />
-               <p>${item.retailPrice}</p>
-               <p>Release Date: ${item.releaseDate}</p>`;
+               <h2>${item.silhouette}</h2>
+               <h3>${item.brand}</h3>
+               <p>$${item.retailPrice}</p>
+               <p>Release Date: ${item.releaseDate}</p>
+               <a class="sneaker-card__btn flex-center-row btn">Buy</a>`;
              sneakers.appendChild(sneaker);
            });
            // Append the DocumentFragment to the container in the DOM
