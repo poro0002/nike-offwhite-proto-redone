@@ -127,7 +127,7 @@ a {
 
 a:hover,
 a:focus-visible {
-  color: #D96666;
+  color: white;
 }
 
 /* Make images easier to work with */
@@ -214,7 +214,7 @@ section{
   align-items: center;
 }
 
-/* ---------- animations ---------- */
+/* ---------- Animations ---------- */
 
 @keyframes fadeIn {
   0% {
@@ -256,6 +256,34 @@ section{
       transform: translateY(0rem);
   }
 
+}
+
+/* ----- fix these pixel units  */
+@keyframes navLinkFade{
+  from {
+    opacity: 0 ;
+    transform: translateX(50px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+   }
+  }
+
+
+
+/* ---------- Toggle Classes ---------- */
+
+.active{
+  display: visible;
+}
+
+.hidden{
+  display: none;
+}
+
+.nav-active{
+  transform: translateX(0%);
 }
 
 
@@ -373,13 +401,15 @@ section{
 
 .navbar{
     flex-direction: column;
-    /* background: linear-gradient(to bottom, var(--shade-four), var(--shade-one) ) ; */
+    background: rgba(0, 0, 0, 0.97);
     overflow: hidden;
     position: fixed;
     z-index: 1000; 
     width: 100%;
+    /* height: 100%; ---- makes it cover the whole mobile screen */ 
     padding: 1rem;
     /* box-shadow: var(--white-box-shadow); */
+    /* ----- hide the main banner when you open the mini mobile navbar so you can keep the background semi transparent */
   }
   
    .navbar .container{
@@ -401,6 +431,10 @@ section{
 
   .nav-list li {
     position: relative;
+  }
+
+  .link{
+   color: white;
   }
 
   .nav-list-extras li {
@@ -489,7 +523,8 @@ section{
 
   @media only screen and (min-width: 45em){
     .navbar{
-    
+      height: auto;
+        background: none;
         display: flex;
         flex-direction: row;
         border-top: 0.5rem solid var(--primary-color2);
@@ -652,15 +687,6 @@ section{
     .banner__content .btn {
       animation: HeadFadeIn 1.2s ease-in-out forwards; /* needs javascript to toggle the animation class */
     }
-
-
-
-    /* FIX THIS COLOR CONTRAST  */
-    .banner__content .btn:hover {
-          /* background-color: var(--secondary-color); */
-          
-    }
-
   
   .banner__para{
     color:white;
@@ -723,11 +749,10 @@ section{
   }
 
   .about-content .container {
-    padding-top: 10rem;
+    padding-top: 13rem;
   }
 
   .about-header{
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -738,7 +763,6 @@ section{
     animation: textFadeDown 1s ease-in ;  /* needs javascript to toggle the animation class */
     width: 10rem;
     padding-bottom: 3rem;
-    backdrop-filter: blur(3rem);
   }
 
   .about__bkgd{
@@ -837,11 +861,15 @@ section{
     height: 100vh;
   }
 
+  .support-content .container{
+    padding: 7rem;
+  }
+
   .support-case{
     /* font-weight: bold; */
     text-align: center;
     color: white;
-    margin: 1.5rem;
+    margin: 1.1rem;
   }
 
   .support__h1{
@@ -929,6 +957,19 @@ section{
     }
   }
 
+   /* <----------------------------- Store -------------------------------> */
+
+
+  .store-content{
+    background: linear-gradient(to left, var(--shade-four), var(--shade-three));
+  }
+
+  .store-content .container{
+      
+  }
+
+
+
 
 
   /* <----- FOOTER -------------------------------> */
@@ -937,8 +978,8 @@ section{
     /* background: linear-gradient(to top, var(--shade-four), var(--shade-one)); */
     color: white;
     border-bottom: 0.5rem solid var(--darkest-color);
-    position: relative;
-    bottom: 15.4%;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     z-index: 1000;
   }
@@ -948,7 +989,6 @@ section{
     padding-top: 3rem;
     padding-bottom: 3rem;
     display: flex;
-    flex-direction: column;
     gap: 1.5rem;    
 
   }
