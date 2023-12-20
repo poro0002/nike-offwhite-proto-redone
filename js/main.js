@@ -1,45 +1,22 @@
 // import APP1 from './app.mjs'
 
-// (() => {
-//    showSneakers();
-// })();
+(() => {
+  showShopSneakers();
+})();
 
 
-// // function showSneakers(){
-// //     console.log(APP2.shoeData)
-// // }
+// globals
 
-// function showSneakers(){
+let storeContainer = document.querySelector(".store-container");
+let selectedShoeContainer = document.querySelector(".store-selected-container");
 
-//     APP1.fetchSneakers(function(err, products) {
-//         if (err) {
-//           console.error('Error fetching products:', err.message);
-//         } else {
-//           // Create a DocumentFragment to hold the sneakers
-//           let sneakers = new DocumentFragment();
-    
-//           try {
-//             // Iterate through the products and create elements for each
-//             products.forEach(item => {
-//               let sneaker = document.createElement('div');
-//               sneaker.innerHTML = `
-//                 <h2>${item.make}</h2>
-//                 <img src="${item.thumbnail}" alt="${item.silhoutte}" />
-//                 <p>${item.retailPrice}</p>
-//                 <p>Stock X:${item.lowerResellPrice.stockX} flightClub:${item.lowerResellPrice.flightClub} goat:${item.lowerResellPrice.goat}</p>`;
-//               sneakers.appendChild(sneaker);
-//             });
-//             // Append the DocumentFragment to the container in the DOM
-//             document.querySelector(".store-content .container").appendChild(sneakers);
 
-//           } catch (error) {
-//             console.log("The function could not be completed", error);
-//           }
-//         }
-//       });
-//     };
+// -------------> Show Shop Sneakers Function <-------------
+
+function showShopSneakers(){
+   
 let size = 10;
-let search = "nike off white"
+let search = "nike off white";
 const url = `https://the-sneaker-database.p.rapidapi.com/sneakers?limit=${size}&brand=off-white`;
 const options = {
 	method: 'GET',
@@ -57,6 +34,7 @@ fetch(url, options)
     return response.json();
   })
   .then(data => {
+    // console.log(data) <----------- display the fetched data
     let sneakers = new DocumentFragment();
          
         try {
@@ -67,16 +45,19 @@ fetch(url, options)
              sneaker.classList.add('sneaker-card') 
             //  sneaker.classList.add('flex-center-column') 
              sneaker.innerHTML = `
-               <img src="${item.image.original}" alt="${item.silhouette}" />
-               <h2>${item.silhouette}</h2>
-               <h3>${item.brand}</h3>
-               <p>$${item.retailPrice}</p>
-               <p>Release Date: ${item.releaseDate}</p>
-               <a class="sneaker-card__btn flex-center-row btn">Buy</a>`;
+               <img class="sneaker-card__img" src="${item.image.original}" alt="${item.silhouette}" />
+                <div class="sneaker-card__content">
+                  <h2>${item.silhouette}</h2>
+                  <h3>${item.brand}</h3>
+                  <p>$${item.retailPrice}</p>
+                  <p>Release Date: ${item.releaseDate}</p>  
+                  </div>
+               <a class="sneaker-card__btn flex-center-row btn">Buy</a>
+              `;
              sneakers.appendChild(sneaker);
            });
            // Append the DocumentFragment to the container in the DOM
-           document.querySelector(".store-content .container").appendChild(sneakers)    
+           storeContainer.appendChild(sneakers)    
          } catch (error) {
            console.log("The function could not be completed", error);
          }
@@ -86,6 +67,61 @@ fetch(url, options)
 
   });
 
+};
+
+// -------------> Store Toggle Functions <--------------
+
+function showSelectedResultDiv(){
+  storeContainer.classList.toggle("hidden");
+  storeContainer.classList.toggle("visible");
+  selectedShoeContainer.classList.toggle("visible");
+  selectedShoeContainer.classList.toggle("hidden");
+}
+
+function showStoreResultsDiv(){
+  storeContainer.classList.toggle("visible");
+  storeContainer.classList.toggle("hidden");
+  selectedShoeContainer.classList.toggle("hidden");
+  selectedShoeContainer.classList.toggle("visible");
+}
+
+
+// -------------> Show Buy (selected) Sneakers Function <--------------
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Your code here
+
+  // ...
+
+  storeContainer.addEventListener("click", showSelectedSneaker)
+});
 
 
 
+function showSelectedSneaker(e){
+   e.preventDefault();
+   showSelectedResultDiv();
+   let clickedCard = e.target.closest('.sneaker-card');
+
+   let imageSrc = clickedCard.querySelector('.sneaker-card__img').src;
+   let silhouette = clickedCard.querySelector('.sneaker-card__content h2').textContent;
+   let brand = clickedCard.querySelector('.sneaker-card__content h3').textContent;
+   let retailPrice = clickedCard.querySelector('.sneaker-card__content p').textContent;
+   let releaseDate = clickedCard.querySelector('.sneaker-card__content p:last-child').textContent;
+
+   let sneakerFragment = new DocumentFragment();
+   let selectedSneakerDiv = document.createElement('div'); 
+   selectedSneakerDiv.classList.add('selected-sneaker-div');
+      selectedSneakerDiv.innerHTML = `
+        <img class="sneaker-card__img" src="${imageSrc}" alt="${silhouette}" />
+          <div class="sneaker-card__content">
+            <h2>${silhouette}</h2>
+            <h3>${brand}</h3>
+            <p>${retailPrice}</p>
+            <p>${releaseDate}</p>  
+            </div>
+         <a class="sneaker-card__btn flex-center-row btn">Buy</a>
+        `;
+    sneakerFragment.appendChild(selectedSneakerDiv);
+    selectedShoeContainer.appendChild(sneakerFragment);
+}

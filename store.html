@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIKE | OFF-WHITE Home</title>
     <link rel="stylesheet" href="css/main.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Mono:wght@100&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -40,13 +41,14 @@
 
         <ul class="nav-list nav-list-main">
                 <li><a class="link" href="index.html">Home</a></li>
-                <li><a class="link" href="index.html#about">About</a></li>
-                <li><a class="link" href="index.html#products">Products</a></li>
-                <li><a class="link" href="index.html#support">Support</a></li> 
+                <li><a class="link" href="#store.html">Store</a></li>
+                <li><a class="link" href="#">SALE</a></li>
+                <li><a class="link" href="#">Other</a></li> 
         </ul>
-        <ul class="nav-list">
-                <li><a href="" class="link cart-icon"><i class="material-icons">shopping_cart</i></a></li>
-                <li><a href="" class="link burger-icon"><i class="material-icons">menu</i></a></li>
+        <ul class="nav-list nav-list-secondary">
+                <li><a href="" id="search-icon" class="link"><i class="material-icons">search</i></a></li>
+                <li><a href="" id="cart-icon" class="link"><i class="material-icons">shopping_cart</i></a></li>
+                <li><a href="" id="burger-icon" class="link"><i class="material-icons">menu</i></a></li>
             </ul>
    
         </div>
@@ -56,17 +58,27 @@
 
     <main id="store-main">
 
-         <!------------- Banner Section ---------------->
+         <!------------- Store Section ---------------->
         <section id="store" class="store-content" tabindex="0">
-           <div class="container">
-            <h1 class="store-content__h2 flex-center-row">Sneakers</h1>
+
+
+        <!---- Fetch Result ---->
+           <div class="store-container container visible ">
+             <h1 class="store-content__h2 flex-center-row">Sneakers</h1>
+               
+           </div> 
+
+           <!---- Selection Result ---->
+
+           <div class="store-selected-container container hidden">
 
            </div> 
+         
         </section>
 
   
 <!------------- Footer  ---------------->
-    <footer class="footer">
+    <footer class="store-footer">
         <div class="container">
             <a class="footer__logo" href="/">
                 <img src="./content/social-media-logos/nike-offwhite-white.png" alt="signature logo" class="footer__icon">
