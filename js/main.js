@@ -89,14 +89,21 @@ function showStoreResultsDiv(){
 
 // -------------> Show Buy (selected) Sneakers Function <--------------
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Your code here
+  document.addEventListener('DOMContentLoaded', () => {
+    // Your code here
 
-  // ...
+    // ...
+    
+    storeContainer.addEventListener("click", showSelectedSneaker)
+    document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
+  });
+
+
+  function exitNavCart(){
+    let navCart = document.querySelector(".nav-cart");
+    navCart.classList.remove("nav-cart-active");
   
-  storeContainer.addEventListener("click", showSelectedSneaker)
-});
-
+  }
 
 
 function showSelectedSneaker(e){
@@ -141,6 +148,9 @@ function showSelectedSneaker(e){
     
       // Popout/main Cart function
         function addToAllCarts(e){
+
+          updateCartFromLocalStorage();
+          
           // navcart code
             let navCart = document.querySelector(".nav-cart");
             navCart.classList.add("nav-cart-active");
@@ -152,60 +162,78 @@ function showSelectedSneaker(e){
               let isItemInCart = Array.from(navCartLiContainer.children).some(cartItem => {
                 return cartItem.getAttribute('data-id') === dataIdToAdd;
               });
-
-              if (!isItemInCart) {
+              
+              // this variable is looping through the local storage keys and checking if the key includes the same data-id that the parent target has
+              // some looks for any of the keys to match and returns boolean
+              let storageIncludes = Object.keys(localStorage).some(key => key.includes(itemToAdd.getAttribute('data-id')));
+             
+     
+              if (!isItemInCart && !storageIncludes) {
                 let clonedItem = itemToAdd.cloneNode(true);
 
                 // also add a remove btn to the nav cart item
+                let removeBtn = document.createElement('a');
+                removeBtn.classList.add('remove-item-btn');
+                removeBtn.innerHTML = `<i class="material-icons">close_small</i>`;
+                
+                removeBtn.addEventListener('click', ()=>{
+                  removeBtn.parentElement.remove();
+                })
+                  
+              
+                
+                // make sure the remove btn is appended to each popout nav cart item
+                // then add an event listener that removes that specific popout nav cart item using the closest method
+                clonedItem.insertBefore(removeBtn, clonedItem.firstChild);
               
               // select all & loop through the buttons in the targeted HTML and remove them
                 let buttonsToRemove = clonedItem.querySelectorAll('.sneaker-card-cart__btn');
                 buttonsToRemove.forEach(button => button.remove());
-
                 navCartLiContainer.appendChild(clonedItem);
-                localStorage.setItem(`localSneaker${localSneaker++}`, selectedSneakerDiv.innerHTML)
-              } else {
-                alert('That item is already in your cart');
-              }
+                return localStorage.setItem(`localSneaker${dataIdToAdd}`, clonedItem.outerHTML);
 
-
-          // local storage management 
-          
-              function updateCartFromLocalStorage() {
-                let navCartLiContainer = document.querySelector(".nav-cart-items");
-              
-                // Clear the current content of the cart
-                navCartLiContainer.innerHTML = '';
-              
-                // Iterate over local storage items
-                for (let key in localStorage) {
-                  if (key.startsWith('localSneaker')) {
-                    // Retrieve the HTML from local storage
-                    let storedHTML = localStorage.getItem(key);
-              
-                    // Create a new div element
-                    let cartItemDiv = document.createElement('div');
-                    cartItemDiv.innerHTML = storedHTML;
-              
-                    // Append the new item to the cart
-                    navCartLiContainer.appendChild(cartItemDiv);
-                  }
-                }
+              }else{
+                alert("that item is already in your bag");
               }
-              
-              // Call the function to update the cart on page load
-              updateCartFromLocalStorage();
 
           // main cart code
           
 
       }
-     
-      
+
 // SHOW SELECTED SNEAKER FUNCTION BRACKETS
   }
 }
   
+function updateCartFromLocalStorage() {
+  let navCartLiContainer = document.querySelector(".nav-cart-items");
+
+  // Clear the current content of the cart
+  navCartLiContainer.innerHTML = '';
+
+  // Iterate over local storage items
+  for (let item in localStorage) {
+    if (item.startsWith('localSneaker')) {
+      // Retrieve the HTML from local storage
+      let storedHTML = localStorage.getItem(item);
+
+      // Create a new div element
+      let cartItemDiv = document.createElement('div');
+      cartItemDiv.innerHTML = storedHTML;
+
+      let removeBtn = cartItemDiv.querySelector('.remove-item-btn');
+        removeBtn.addEventListener('click', (e)=>{
+          let currentCardItem = e.target.closest('.selected-sneaker-div');
+          removeBtn.parentElement.remove();
+          localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
+        })
+
+      // Append the new item to the cart
+      navCartLiContainer.appendChild(cartItemDiv);
+    }
+  }
+}
+
 
  
 

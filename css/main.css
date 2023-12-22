@@ -1187,7 +1187,7 @@ section{
      color: var(--secondary-color);
      transition: 0.1s ease-in;
      box-shadow: var(--white-box-shadow-hover);
-     
+     cursor: pointer;
   }
 
   .sneaker-card:hover .sneaker-card__btn{
@@ -1259,7 +1259,7 @@ section{
     right: 0;
     height: 100%;
     width: 20%;
-    z-index: 100;
+    z-index: 10000;
 
 
     transform: translateX(100%); 
@@ -1268,6 +1268,7 @@ section{
     color: white;
     opacity: 0.8;
     padding: 3rem;
+    overflow-y: scroll;
 
 
     display: flex;
@@ -1286,23 +1287,30 @@ section{
 
   .nav-cart-exit__btn{
     color: white;
-    position: relative;
-    top: -1%;
-    right: 50%;
-   
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    z-index: 1;
+    align-self: flex-start;
+    
   }
 
   #exit-icon{
     font-size: var(--xxlg);
   }
   
-  #exit-icon:hover,
-  #exit-icon:focus{
+  .nav-cart-exit__btn:hover,
+  .nav-cart-exit__btn:focus{
     cursor: pointer ;
+  }
+
+
+  .remove-item-btn{
+     color: white;
+     transition: 0.3s ease-in forwards ;
+  }
+
+  .remove-item-btn:hover,
+  .remove-item-btn:focus{
+    cursor: pointer;
+    transform: scale(1.1);
   }
 
 
