@@ -178,6 +178,7 @@ function showSelectedSneaker(e){
                 
                 removeBtn.addEventListener('click', ()=>{
                   removeBtn.parentElement.remove();
+                  localStorage.removeItem(`localSneaker${clonedItem.getAttribute('data-id')}`);
                 })
                   
               
@@ -222,7 +223,7 @@ function updateCartFromLocalStorage() {
       cartItemDiv.innerHTML = storedHTML;
 
       let removeBtn = cartItemDiv.querySelector('.remove-item-btn');
-        removeBtn.addEventListener('click', (e)=>{
+        removeBtn.addEventListener('click', (e) =>{
           let currentCardItem = e.target.closest('.selected-sneaker-div');
           removeBtn.parentElement.remove();
           localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
