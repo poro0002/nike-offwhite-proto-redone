@@ -283,6 +283,22 @@ section{
   display: grid;
 }
 
+.home-footer.hidden {
+  display: none;
+}
+
+.home-footer .visible {
+  display: block;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
 
 /* ----------------------------------------------- */
 /*------------------ PAGE 1 ------------------*/
@@ -412,11 +428,43 @@ section{
     position: fixed;
     z-index: 1000; 
     width: 100%;
-    /* height: 100%; ---- makes it cover the whole mobile screen */ 
     padding: 1rem;
+    height: 100%;
+    transform: translateX(100%); 
+    
     /* box-shadow: var(--white-box-shadow); */
     /* ----- hide the main banner when you open the mini mobile navbar so you can keep the background semi transparent */
   }
+
+
+   /*---- ACTIVE CLASS ----*/
+
+  .navbar-active{
+    animation: navLinkFade 0.3s ease-in-out forwards;
+  }
+   /*----- ACTIVE CLASS -----*/
+
+
+  .nav-mobile-menu{
+    display: block;
+    position: absolute;
+    top:3%;
+    left: 7%;
+    z-index: 100000;
+    
+  }
+
+  .nav-mobile-menu:hover,
+  .nav-mobile-menu:focus{
+     cursor: pointer;
+     transform: scale(1.02);
+  }
+
+  #burger-icon{
+    font-size: var(--xxlg);
+    color: white;
+  }
+  
   
    .navbar .container{
     padding: 0;
@@ -536,12 +584,16 @@ section{
 
   @media only screen and (min-width: 45em){
     .navbar{
-      height: auto;
+        height: auto;
         background: none;
         display: flex;
         flex-direction: row;
         border-top: 0.5rem solid var(--primary-color2);
-       
+        transform: translateX(0);
+    }
+
+    .nav-mobile-menu{
+      display: none;
     }
     
     .navbar .container{
@@ -911,11 +963,14 @@ section{
   /* border-bottom: 0.5rem solid var(--darkest-color); */
    /* z-index: 1000; */
 
-
+  
   background-color: transparent;
   color: white;
   width: 100%;
  
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
 }
 
 
@@ -1120,6 +1175,7 @@ section{
 /* <----------------------------- Store -------------------------------> */
   /* <------------------------------------------------------------> */
 
+
     #store-main{
       background: linear-gradient(to left, var(--shade-four), var(--shade-three));
     }
@@ -1213,6 +1269,15 @@ section{
   
     }
 
+    /* <----- store navbar-------------------------------> */
+
+     .store-navbar{
+      background: linear-gradient(to left, var(--shade-four), var(--shade-three));
+      /* background-color: black; */
+      /* opacity: .8;  */
+     }
+
+
  /* <----- Selected Container -------------------------------> */
 
    .store-selected-container{
@@ -1222,6 +1287,7 @@ section{
 
    .selected-sneaker-div{
       color: white;
+   
    }
 
 
@@ -1276,6 +1342,11 @@ section{
     align-items: center;
   }
 
+  .nav-cart__item{
+    border-bottom: 0.125rem solid white;
+    margin-bottom: 2rem;
+  }
+
   .nav-cart__h2{
 
   }
@@ -1312,6 +1383,8 @@ section{
     cursor: pointer;
     transform: scale(1.1);
   }
+
+
 
 
 
