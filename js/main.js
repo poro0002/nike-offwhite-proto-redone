@@ -214,7 +214,7 @@ function showSelectedSneaker(e){
                 // also add a remove btn to the nav cart item
                 let removeBtn = document.createElement('a');
                 removeBtn.classList.add('remove-item-btn');
-                removeBtn.innerHTML = `<i class="material-icons">close_small</i>`;
+                removeBtn.innerHTML = `<i class="material-icons">delete</i> Delete`;
                 
                 removeBtn.addEventListener('click', ()=>{
                   removeBtn.parentElement.remove();

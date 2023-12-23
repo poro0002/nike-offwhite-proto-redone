@@ -1438,7 +1438,7 @@ section{
     position: fixed;
     right: 0;
     height: 100%;
-    width: 20%;
+    width: 75%;
     z-index: 10000;
 
 
@@ -1446,9 +1446,9 @@ section{
     transition: transform 0.5s ease-in;
     background-color: black;
     color: white;
-    opacity: 0.8;
-    padding: 3rem;
-    overflow-y: scroll;
+    opacity: 0.95;
+    padding: 1rem;
+    
 
 
     display: flex;
@@ -1456,13 +1456,20 @@ section{
     align-items: center;
   }
 
+  .cart-item__cont{
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+  }
+
   .nav-cart__item{
     border-bottom: 0.125rem solid white;
     margin-bottom: 2rem;
+    
   }
 
   .nav-cart__h2{
-
+      margin-bottom: 3rem;
   }
     
 
@@ -1474,7 +1481,7 @@ section{
     color: white;
     display: flex;
     align-self: flex-start;
-    
+    transition: 0.3s ease-in forwards ;
   }
 
   #exit-icon{
@@ -1484,12 +1491,14 @@ section{
   .nav-cart-exit__btn:hover,
   .nav-cart-exit__btn:focus{
     cursor: pointer ;
+    transform: scale(1.1);
   }
 
 
   .remove-item-btn{
-     color: white;
+     color: var(--darkest-color);
      transition: 0.3s ease-in forwards ;
+     display: inline-flex;
   }
 
   .remove-item-btn:hover,
@@ -1497,6 +1506,23 @@ section{
     cursor: pointer;
     transform: scale(1.1);
   }
+
+  /* nav cart media queries */
+
+  @media only screen and (min-width: 60em){
+    
+    .nav-cart{
+      width: 20%;
+    }
+
+    .nav-cart__item{
+      margin-bottom: 4rem;
+      
+    }
+     
+  
+
+ }
 
 
 
