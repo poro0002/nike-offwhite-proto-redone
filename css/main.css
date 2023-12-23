@@ -61,13 +61,21 @@
 
 
           /* extra font sizes */
+          --mobile-para: 0.5rem;
           --xsm: 0.7rem;
           --sm: 0.9rem;
           --md: 1.1rem;
           --lg: 1.5rem;
           --xlg: 1.9rem;
           --xxlg: 2.2rem;
-        
+
+
+          /* mobile btns  use --sm font for mobile btns/--lg for PC btns*/
+          /* padding */
+          --mobile-btn: 0.5rem 2.5rem; 
+          --pc-btn: 1rem 4rem;
+          --mobile-pd-top-cont: 4rem;
+          --pc-pd-top-cont: 13rem;
          
 }
 
@@ -363,7 +371,6 @@ section{
       .btn{
         display: flex;
         border-radius: 0.2rem;
-        padding: 1rem 1.5rem;
         margin: 0.2rem;
         text-decoration: none;
         background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
@@ -376,10 +383,8 @@ section{
       .btn--secondary{
         display: flex;
         border-radius: 0.2rem;
-        padding: 1rem 1.5rem;
         margin: 0.2rem;
         text-decoration: none;
-        /* background: linear-gradient(to left, var(--primary-color)); */
         border: none;
         box-shadow: var(--white-box-shadow);
         color: white;
@@ -711,8 +716,7 @@ section{
     justify-content: var(--banner-hor-align);
     align-items: var(--banner-vertical-align);
     text-align: var(--text-align);
-    padding-top: 15rem;
-    padding-bottom: 3rem;
+    padding-top: var(--mobile-pd-top-cont);
     
   }
   
@@ -736,7 +740,7 @@ section{
   
   .banner__header{
     color: var(--secondary-color);
-    font-size: var(--lg);
+    font-size: var(--md);
     animation: HeadFadeIn 0.8s ease-in-out forwards;  /* needs javascript to toggle the animation class */
     padding-top: 2rem;
   }
@@ -745,12 +749,14 @@ section{
   .banner__img {
     opacity: 0;
     animation: fadeIn 2s ease-in-out forwards ;
-    width: 10rem;
+    width: 5rem;
   
     }
 
     .banner__content .btn {
       animation: HeadFadeIn 1.2s ease-in-out forwards; /* needs javascript to toggle the animation class */
+      padding: var(--mobile-btn);
+      font-size: var(--sm);
     }
   
   .banner__para{
@@ -789,6 +795,11 @@ section{
   /* banner media queries */
   
   @media only screen and (min-width: 45em){
+    .banner .container{
+      padding-top: var(--pc-pd-top-cont);
+      padding-bottom: 3rem;
+    }
+
     .banner__content{
       margin: 0rem;
     }
@@ -800,6 +811,16 @@ section{
     .banner__para{
       font-size: var(--md);
       line-height: 2rem;
+    }
+
+    .banner__content .btn {
+      padding: var(--pc-btn); 
+      color: white;
+      font-size: var(--xlg);
+    }
+
+    .banner__img{
+      width: 15rem;
     }
 
     
@@ -814,7 +835,7 @@ section{
   }
 
   .about-content .container {
-    padding-top: 13rem;
+    padding-top: var(--mobile-pd-top-cont);
     
   }
 
@@ -827,8 +848,8 @@ section{
 
   .about__img{
     animation: textFadeDown 1s ease-in ;  /* needs javascript to toggle the animation class */
-    width: 10rem;
-    padding-bottom: 3rem;
+    width: 7rem;
+    padding-bottom: 1rem;
   }
 
   .about__bkgd{
@@ -839,13 +860,16 @@ section{
     animation: textFadeDown 1s ease-in ; /* needs javascript to toggle the animation class */
     color: white;
     padding-top: 1rem;
+    padding-bottom: 0;
+    margin: 0.2rem;
+    font-size: var(--sm);
   }
 
   .about__para{
     animation: textFadeDown 0.8s ease-in ; /* needs javascript to toggle the animation class */
     color: white;
     line-height: 1.1rem;
-    font-size: var(--sm);
+    font-size: var(--mobile-para);
     text-align: center;
     margin: 0;
   }
@@ -854,23 +878,31 @@ section{
 
 /* ipad */
   @media only screen and (min-width: 45em){
+
+    .about-content .container {
+      padding-top: var(--pc-pd-top-cont);
+      
+    }
+    
      .about__para{
       font-size: var(--sm);
       line-height: 1.5rem;
      }
      .about__h2{
-       
+      padding-bottom: 3rem;
+      font-size: var(--lg);
      }
 
      .about__img{
       width: 15rem;
+      padding-bottom: 3rem;
      }
   }
 
   /* web */
   @media only screen and (min-width: 60em){
+
     .about__para{
-      font-size: var(--sm);
       line-height: 2.3rem;
      }
      .about__h2{
@@ -894,19 +926,20 @@ section{
 
   .products-content .container{
     height: 85%;
+
   }
+  
 
   .products__h2{
     color: white;
-    font-size: var(--xxlg);
+    font-size: var(--lg);
     filter: drop-shadow(0 0.25rem 0.5rem #000000);
   }
 
   .products__btn{
-    padding-left:5rem;
-    padding-right:5rem; 
-    color: white;
-    font-size: var(--lg);
+      padding: var(--mobile-btn);
+      font-size: var(--sm);
+      color: white;
   }
 
   .products-btn__innerText{
@@ -916,6 +949,30 @@ section{
   .products-content .container button i{
     font-size: var(--xlg);
     margin-left: 0.5rem;
+  }
+
+  /* Products media queries */
+
+  /* ipad */
+  @media only screen and (min-width: 45em){
+      .products__btn{
+        padding: var(--pc-btn);
+        font-size: var(--lg);
+      }
+
+      .products__h2{
+        color: white;
+        font-size: var(--xxlg);
+      }
+  }
+
+
+
+  /* web */
+  @media only screen and (min-width: 60em){
+
+
+    
   }
 
 
@@ -928,29 +985,63 @@ section{
   }
 
   .support-content .container{
-    padding: 7rem;
+    display: grid;
+    padding-top: var(--mobile-pd-top-cont);
     height: 80%;
   }
 
+  .support-case-gd2{
+   
+  }
+
   .support-case{
-    /* font-weight: bold; */
     text-align: center;
     color: white;
-    margin: 0.4rem;
+    margin: 0.1rem;
+  }
+
+  .support-case p{
+    font-size: var(--mobile-para);
   }
 
   .support__h1{
      color: white;
+     font-size: var(--sm);
+     padding: 0;
+     margin: 0;
   }
 
   .support__btn{
-
+    padding: var(--mobile-btn);
+    font-size: var(--sm);
   }
 
 
   @media only screen and (min-width: 45em){
     .support-content .container{
-      padding: 11rem 11rem 3rem 11rem;
+      padding-top: var(--pc-pd-top-cont);
+    }
+
+    .support__btn{
+      padding: var(--pc-btn);
+      font-size: var(--lg);
+    }
+
+    .support__h1{
+       font-size: var(--lg);
+    }
+
+    .support-case p{
+      font-size: var(--sm);
+    }
+
+    .support-case{
+      margin: 0.4rem;
+    }
+
+    .support-case-gd2{
+        padding: 0;
+        margin: 0;
     }
 
 
@@ -1198,10 +1289,12 @@ section{
   .store-container{
       display: grid;
       gap: 3rem;
-      padding-top: 10rem;
+      padding-top: var(--mobile-pd-top-cont);
       padding-bottom: 10rem;
+      padding-left: 0;
+      padding-right: 0;
       grid-template-columns: 1fr;
-      width:80%;
+      width: 80%;
   }
 
   .sneaker-card{
@@ -1217,7 +1310,7 @@ section{
     
 
     border-radius: 1.5rem; 
-    padding:4rem;
+    padding: 2rem;
     color: white;
     text-decoration: none;
   }
@@ -1255,7 +1348,10 @@ section{
   @media only screen and (min-width: 60em){
      .store-container{
         grid-template-columns: 1fr 1fr ;
-          
+        padding-top: var(--pc-pd-top-cont);
+      }
+      .sneaker-card{
+        padding: 4rem;
       }
 
   }
@@ -1281,8 +1377,8 @@ section{
  /* <----- Selected Container -------------------------------> */
 
    .store-selected-container{
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    padding-top: var(--mobile-pd-top-cont);
+    
    }
 
    .selected-sneaker-div{
@@ -1302,10 +1398,11 @@ section{
   }
 
  .sneaker-card-cart__btn{
-  margin-top: 1.5rem;
-  font-size: var(--lg);
+  margin-top: 1rem;
+  padding: var(--mobile-btn);
+  font-size: var(--sm);
   /* background-color: var(--secondary-color); */
-}
+  }
 
   #back-icon{
     margin-right: 0.5rem ;
@@ -1316,6 +1413,23 @@ section{
     color: var(--secondary-color);
     transition: 0.1s ease-in;
   }
+
+  /* selected sneaker media queries */
+
+  @media only screen and (min-width: 60em){
+    .store-selected-container{
+       padding-top: var(--pc-pd-top-cont);
+       padding-bottom: 10rem;
+     }
+
+     .sneaker-card-cart__btn{
+      font-size: var(--lg);
+      padding: var(--pc-btn);
+      margin-top: 1.5rem;
+     }
+  
+
+ }
 
 /* <----- Nav Cart -------------------------------> */
 
