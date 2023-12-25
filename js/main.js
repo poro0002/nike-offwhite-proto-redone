@@ -171,7 +171,7 @@ function showSelectedSneaker(e){
               <div class="sneaker-card__content">
                 <h2>${silhouette}</h2>
                 <h3>${brand}</h3>
-                <p>${retailPrice}</p>
+                <p class="sneaker-card__price">${retailPrice}</p>
                 <p>${releaseDate}</p>  
                 </div>
               <a class="sneaker-card-cart__btn flex-center-row btn--secondary">Add To Cart</a>
@@ -223,7 +223,8 @@ function showSelectedSneaker(e){
                 removeBtn.addEventListener('click', ()=>{
                   removeBtn.parentElement.remove();
                   localStorage.removeItem(`localSneaker${clonedItem.getAttribute('data-id')}`);
-                  updateQuantity()
+                  updateQuantity();
+                  updateSubTotal();
                 })
 
               // add a quantity input 
@@ -232,7 +233,7 @@ function showSelectedSneaker(e){
                      quantityInput.classList.add('quantity-input');
                      quantityInput.type = 'number';
     
-
+                     
               // make sure the remove btn is appended to each popout nav cart item
                  
                   clonedItem.insertBefore(removeBtn, clonedItem.firstChild);
@@ -255,8 +256,10 @@ function showSelectedSneaker(e){
                 //append cloned item to the navcart item container and set in local storage
                   navCartLiContainer.appendChild(clonedItem);
                   updateQuantity();
+                  updateSubTotal();
               }else{
                 alert("that item is already in your bag");
+                updateQuantity();
               }
           // main cart code
       }
@@ -304,7 +307,7 @@ function showSelectedSneaker(e){
         let cartItemDiv = document.createElement('div');
         cartItemDiv.innerHTML = storedObject.html;
         
-        // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again, doesnt work tho
+        // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again, doesn't work though
         let cartItemObj = {
           dataId: storedDataId,
           quantity: storedQuantity,  
@@ -317,7 +320,7 @@ function showSelectedSneaker(e){
     }
   }
 
-  // Update Quantity and Adds Remove Btns
+ // -------------> Update Quantity Function <--------------
 
   // This just loops through the nav cart items and adds event listeners to the inputs, it then updates the local storage quantity
     function updateQuantity(){
@@ -335,6 +338,7 @@ function showSelectedSneaker(e){
             removeBtn.parentElement.remove();
             localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
             updateQuantity(); // re-updates after deleting an item
+            updateSubTotal();
           })
 
           quantityInput.addEventListener("input", () => {
@@ -344,17 +348,23 @@ function showSelectedSneaker(e){
                 let storedString = localStorage.getItem(item);
                 let storedObject = JSON.parse(storedString);
 
-              
                   if(navCartItemDataId === storedObject.dataId){
                     storedObject.quantity = quantityInput.value; // here
                     localStorage.setItem(item, JSON.stringify(storedObject));
                   }
                 }
+              // makes it so you cant make quantity neg/0 or something other than a number
+                if(isNaN(quantityInput.value) || quantityInput.value <= 0 ){
+                  quantityInput.value = 1;
+                   }
+
+                   
               }
+              updateSubTotal();
             });
 
       // So.. the FIRST loop is to add the event & set the input value and when the cart is displayed
-      //  The SECOND loop is to update the local storage quantity when the input in the cart is changed.
+      // The SECOND loop is to update the local storage quantity when the input in the cart is changed.
 
             for (let item in localStorage) {
               if (item.startsWith('localSneaker')) {
@@ -367,12 +377,34 @@ function showSelectedSneaker(e){
                   }
                 }
               }
+              updateSubTotal();
         });
       }
-      
-      
-
     }
+ 
+    // -------------> Update Cart SubTotal Function <--------------
+
+    function updateSubTotal(){
+      let navCartItems = document.querySelectorAll(".nav-cart__item");
+         let totalSubTotal = 0;
+
+         if (navCartItems.length > 0) {
+          navCartItems.forEach(navItem => {
+            let sneakerPrice = navItem.querySelector('.sneaker-card__price');
+            let quantityInput = navItem.querySelector('.quantity-input');
+            
+              let navItemPrice = sneakerPrice.textContent;
+              let removeDollarSign = navItemPrice.substring(1);
+              let priceToNumber = parseFloat(removeDollarSign);
+      
+              totalSubTotal += priceToNumber * parseFloat(quantityInput.value);
+           
+          });
+        }
+      
+        let navSubTotal = document.querySelector(".total-subtotal__span");
+        navSubTotal.textContent = "$" + totalSubTotal.toFixed(2);
+      }
 
 
 
