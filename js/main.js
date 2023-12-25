@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   showShopSneakers();
   storeContainer.addEventListener("click", showSelectedSneaker)
   document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
-  
+  document.querySelector(".removebtn").addEventListener('click', removeAllItems)
+  updateQuantity()
 });
 
 // checkScreenSize();
@@ -185,11 +186,12 @@ function showSelectedSneaker(e){
       let selectedSneakerCartBtn = document.querySelector('.sneaker-card-cart__btn');
       selectedSneakerCartBtn.addEventListener("click", addToAllCarts)
     
-      // Popout/main Cart function
-        function addToAllCarts(e){
-
+      // Pop out/main Cart function
+      function addToAllCarts(e){
+      
           updateCartFromLocalStorage();
           
+
           // navcart code
             let navCart = document.querySelector(".nav-cart");
             navCart.classList.add("nav-cart-active");
@@ -205,34 +207,54 @@ function showSelectedSneaker(e){
               // this variable is looping through the local storage keys and checking if the key includes the same data-id that the parent target has
               // some looks for any of the keys to match and returns boolean
               let storageIncludes = Object.keys(localStorage).some(key => key.includes(itemToAdd.getAttribute('data-id')));
-             
-     
+              let cartItemObj;
+           //if the item is not in cart and storage doesnt include it 
               if (!isItemInCart && !storageIncludes) {
+                
                 let clonedItem = itemToAdd.cloneNode(true);
                 clonedItem.classList.add('nav-cart__item');
 
-                // also add a remove btn to the nav cart item
+           
+                // also add a REMOVE BTN to the nav cart item
                 let removeBtn = document.createElement('a');
                 removeBtn.classList.add('remove-item-btn');
                 removeBtn.innerHTML = `<i class="material-icons">delete</i> Delete`;
-                
+
                 removeBtn.addEventListener('click', ()=>{
                   removeBtn.parentElement.remove();
                   localStorage.removeItem(`localSneaker${clonedItem.getAttribute('data-id')}`);
+                  updateQuantity()
                 })
-                  
-              
-                
-                // make sure the remove btn is appended to each popout nav cart item
-                // then add an event listener that removes that specific popout nav cart item using the closest method
-                clonedItem.insertBefore(removeBtn, clonedItem.firstChild);
-              
-              // select all & loop through the buttons in the targeted HTML and remove them
-                let buttonsToRemove = clonedItem.querySelectorAll('.sneaker-card-cart__btn');
-                buttonsToRemove.forEach(button => button.remove());
-                navCartLiContainer.appendChild(clonedItem);
-                return localStorage.setItem(`localSneaker${dataIdToAdd}`, clonedItem.outerHTML);
 
+              // add a quantity input 
+                     let quantityInput = document.createElement('input');
+                     quantityInput.value = 1;
+                     quantityInput.classList.add('quantity-input');
+                     quantityInput.type = 'number';
+    
+
+              // make sure the remove btn is appended to each popout nav cart item
+                 
+                  clonedItem.insertBefore(removeBtn, clonedItem.firstChild);
+                  clonedItem.appendChild(quantityInput);
+
+              // select all & loop through the buttons in the targeted HTML and remove them
+                  let buttonsToRemove = clonedItem.querySelectorAll('.sneaker-card-cart__btn');
+                  buttonsToRemove.forEach(button => button.remove());
+
+                  cartItemObj = {
+                    dataId: dataIdToAdd,
+                    quantity: 1,  
+                    html: clonedItem.outerHTML,
+                  
+                  };
+          
+               // Save the object as a JSON string to local storage
+                 localStorage.setItem(`localSneaker${dataIdToAdd}`, JSON.stringify(cartItemObj));
+
+                //append cloned item to the navcart item container and set in local storage
+                  navCartLiContainer.appendChild(clonedItem);
+                  updateQuantity();
               }else{
                 alert("that item is already in your bag");
               }
@@ -251,38 +273,106 @@ function showSelectedSneaker(e){
 
   }
 
+  // -------------> Clear NavCart and Local Storage <--------------
+
+  function removeAllItems(){
+    let navCartLiContainer = document.querySelector(".nav-cart-items");
+    navCartLiContainer.innerHTML = '';
+    localStorage.clear();
+  }
+
 // -------------> Update Cart With Local Storage Function <--------------
+
+// in this function it grabs all of the sneakerItems local storage data and loops through them and displays it in the nav-cart-items container
   
   function updateCartFromLocalStorage() {
     let navCartLiContainer = document.querySelector(".nav-cart-items");
 
-    // Clear the current content of the cart
+    // clears whatever is in the cart
     navCartLiContainer.innerHTML = '';
 
     // Iterate over local storage items
     for (let item in localStorage) {
       if (item.startsWith('localSneaker')) {
         // Retrieve the HTML from local storage
-        let storedHTML = localStorage.getItem(item);
+        let storedString = localStorage.getItem(item);
+        let storedObject = JSON.parse(storedString);
+        let storedQuantity = storedObject.quantity;
+        let storedDataId = storedObject.dataId;
+
+
         let cartItemDiv = document.createElement('div');
-        cartItemDiv.innerHTML = storedHTML;
+        cartItemDiv.innerHTML = storedObject.html;
+        
+        // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again, doesnt work tho
+        let cartItemObj = {
+          dataId: storedDataId,
+          quantity: storedQuantity,  
+          html: cartItemDiv.innerHTML,
+        }
 
-        let removeBtn = cartItemDiv.querySelector('.remove-item-btn');
-          removeBtn.addEventListener('click', (e) =>{
-            let currentCardItem = e.target.closest('.selected-sneaker-div');
-            removeBtn.parentElement.remove();
-            localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
-          })
+         navCartLiContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
 
-        navCartLiContainer.appendChild(cartItemDiv);
       }
     }
   }
 
+  // Update Quantity and Adds Remove Btns
 
- 
+  // This just loops through the nav cart items and adds event listeners to the inputs, it then updates the local storage quantity
+    function updateQuantity(){
 
+      let navCartItems = document.querySelectorAll(".nav-cart__item");
+      
+      if(navCartItems.length > 0){
+        navCartItems.forEach(navItem => {
+          let quantityInput = navItem.querySelector(".quantity-input");
+          let navCartItemDataId = navItem.getAttribute('data-id');
+          let removeBtn = navItem.querySelector('.remove-item-btn');
 
+          removeBtn.addEventListener('click', (e) =>{
+            let currentCardItem = e.target.closest('.selected-sneaker-div');
+            removeBtn.parentElement.remove();
+            localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
+            updateQuantity(); // re-updates after deleting an item
+          })
+
+          quantityInput.addEventListener("input", () => {
+            for (let item in localStorage) {
+              if (item.startsWith('localSneaker')) {
+                // Retrieve the HTML from local storage
+                let storedString = localStorage.getItem(item);
+                let storedObject = JSON.parse(storedString);
+
+              
+                  if(navCartItemDataId === storedObject.dataId){
+                    storedObject.quantity = quantityInput.value; // here
+                    localStorage.setItem(item, JSON.stringify(storedObject));
+                  }
+                }
+              }
+            });
+
+      // So.. the FIRST loop is to add the event & set the input value and when the cart is displayed
+      //  The SECOND loop is to update the local storage quantity when the input in the cart is changed.
+
+            for (let item in localStorage) {
+              if (item.startsWith('localSneaker')) {
+                // Retrieve the HTML from local storage
+                let storedString = localStorage.getItem(item);
+                let storedObject = JSON.parse(storedString);
+
+                  if(navCartItemDataId === storedObject.dataId){
+                    quantityInput.value = storedObject.quantity; // here
+                  }
+                }
+              }
+        });
+      }
+      
+      
+
+    }
 
 
 

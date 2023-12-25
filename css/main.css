@@ -71,9 +71,11 @@
 
 
           /* mobile btns  use --sm font for mobile btns/--lg for PC btns*/
-          /* padding */
+          /* btn padding */
           --mobile-btn: 0.5rem 2.5rem; 
           --pc-btn: 1rem 4rem;
+
+          /* container top padding */
           --mobile-pd-top-cont: 4rem;
           --pc-pd-top-cont: 13rem;
          
@@ -1441,15 +1443,12 @@ section{
     width: 75%;
     z-index: 10000;
 
-
     transform: translateX(100%); 
     transition: transform 0.5s ease-in;
     background-color: black;
     color: white;
     opacity: 0.95;
     padding: 1rem;
-    
-
 
     display: flex;
     flex-direction: column;
@@ -1507,10 +1506,26 @@ section{
     transform: scale(1.1);
   }
 
+  .quantity-input{
+    margin-bottom: 1.5rem;
+    width: 20%;
+    color: white;
+    padding: 0.3rem;
+    background-color: transparent;
+    border: 0.125rem solid white;
+  }
+
   /* nav cart media queries */
 
+  @media only screen and (min-width: 45em){
+    .quantity-input{
+      width: 30%;
+    }
+
+  }
+
   @media only screen and (min-width: 60em){
-    
+
     .nav-cart{
       width: 20%;
     }
@@ -1519,8 +1534,10 @@ section{
       margin-bottom: 4rem;
       
     }
-     
-  
+
+    .quantity-input{
+      width: 50%;
+    }
 
  }
 
