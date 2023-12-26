@@ -1164,7 +1164,7 @@ section{
   /* border-bottom: 0.5rem solid var(--darkest-color); */
    /* z-index: 1000; */
 
-  
+  display: none;
   background-color: transparent;
   color: white;
   width: 100%;
@@ -1280,6 +1280,10 @@ section{
 
 
 @media only screen and (min-width: 45em){
+
+    .footer{
+      display: block;
+    }
 
    .footer .container{
       flex-direction: row;
