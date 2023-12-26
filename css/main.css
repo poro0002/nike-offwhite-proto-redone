@@ -225,6 +225,12 @@ section{
   align-items: center;
 }
 
+.flex-align-self-center{
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
 /* ---------- Animations ---------- */
 
 @keyframes fadeIn {
@@ -280,6 +286,17 @@ section{
     transform: translateX(0px);
    }
   }
+
+  @keyframes searchFade{
+    from {
+      opacity: 0 ;
+      transform: translateY(-50px); 
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+     }
+    }
 
 
 
@@ -421,9 +438,97 @@ section{
       filter: drop-shadow(0 0.25rem 0.5rem #000000);
       cursor: pointer;
    }
+
+/* <----------------------- SEARCH BAR -------------------------------> */
+
+   /* ACTIVE CLASS */
+
+   .searchBar-active{
+    animation: searchFade 0.3s ease-in-out forwards;
+  }
+
+  .search-bar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1000000;
+ 
+    transform: translateY(-100%); 
+    transition: transform 0.5s ease-in;
+    background-color: black;
+    color: white;
+    opacity: 0.95;
+    padding: 1rem;
+  }
+
+  .search-bar__logos{
+     padding-bottom: 1rem;
+  }
+
+
+  .search-bar__img{
+    width: 3rem;
+    padding-right: 0.5rem;
+  }
+
+
+  .search-bar__img2{
+    width: 7rem;
+  }
+
+  .search-bar .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+   
+  }
+
+  .search-bar-exit__btn {
+     margin: 0;
+     color: var(--primary-color);
+  }
+
+  .search-bar-exit__btn:hover,
+  .search-bar-exit__btn:focus{
+      cursor: pointer;
+  }
+
+
+  .search-input{
+     width: 50%;
+     margin-left: 1rem;
+     /* margin-bottom: 1rem; */
+     color: black;
+  }
+
+
+@media only screen and (min-width: 45em){
+    
+    .search-bar{
+      height: 8%;
+     }
+
+    .search-bar .container{
+      flex-direction: row;
+      justify-content: center;
+     }
+
+    .search-bar__logos{
+      padding-bottom: 0rem;
+     }
+
+    .search-bar-exit__btn {
+      margin-right: 4rem; 
+      
+     }
+
+}
   
 
-/* <----- NAVBAR -------------------------------> */
+/* <----------------------- NAVBAR -------------------------------> */
 
 
 /* mobile first*/
@@ -444,12 +549,12 @@ section{
   }
 
 
-   /*---- ACTIVE CLASS ----*/
+   /* ACTIVE CLASS */
 
   .navbar-active{
     animation: navLinkFade 0.3s ease-in-out forwards;
   }
-   /*----- ACTIVE CLASS -----*/
+
 
 
   .nav-mobile-menu{
@@ -478,6 +583,7 @@ section{
     gap: 1.5rem; 
    
   }
+  
   
   
   .nav-list{
@@ -636,6 +742,8 @@ section{
         left: 26%;
         width: 50%;
       }
+
+   
     
   }
 
@@ -1513,6 +1621,28 @@ section{
     padding: 0.3rem;
     background-color: transparent;
     border: 0.125rem solid white;
+  }
+
+  /* Pricing total */
+
+  .total-cont{
+     padding: 3rem 0rem;
+  }
+
+  .purchaseBtn{
+     
+  }
+
+  .removeBtn{
+    
+  }
+
+
+  .purchaseBtn:hover,
+  .purchaseBtn:focus,
+  .removeBtn:hover,
+  .removeBtn:focus{
+    cursor: pointer;
   }
 
   /* nav cart media queries */

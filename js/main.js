@@ -13,14 +13,50 @@ let homeMain = document.getElementById('main');
 // -------------> DOM Content Loaded Functions <--------------
 
 document.addEventListener('DOMContentLoaded', () => {
-  showShopSneakers();
-  storeContainer.addEventListener("click", showSelectedSneaker)
-  document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
-  document.querySelector(".removebtn").addEventListener('click', removeAllItems)
-  updateQuantity()
+  
+  const homePage = window.location.pathname.includes('index.html');
+  const storePage = window.location.pathname.includes('store.html');
+  
+  
+  if(homePage){
+    document.querySelector(".nav-list li #search-icon").addEventListener('click', searchBar)
+    document.querySelector(".search-bar-exit__btn").addEventListener('click', exitSearchBar)
+    homeMain.addEventListener('scroll', scrollPage);
+
+  } else if(storePage){
+      showShopSneakers();
+      storeContainer.addEventListener("click", showSelectedSneaker)
+      document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
+      document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
+      updateQuantity();
+    }
+
+ 
 });
 
-// checkScreenSize();
+// -------------> SearchBar Function <-------------
+
+  function searchBar(){
+     console.log("is this working ?");
+      document.querySelector(".search-bar").classList.add("searchBar-active")
+      let searchInput = document.querySelector(".search-input");
+        searchInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            searchInput.value = "";
+            //im sending the search param in the url over to the page im visiting then taking it and applying it to the fetch
+            // encodeURIComponent takes a string and prepares it to be included as a component in a URI by replacing special characters with their URL-encoded representations. 
+            window.location.href = `store.html?search=${encodeURIComponent(searchInput.value)}`;
+          }
+        });
+
+   }
+
+  // -------------> Exit Search Bar Function <--------------
+  function exitSearchBar(){
+    let searchBar = document.querySelector(".search-bar");
+    searchBar.classList.remove("searchBar-active");
+
+  }
 
 
 // -------------> Show Shop Sneakers Function <-------------
@@ -28,8 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function showShopSneakers(){
     
     let size = 10;
-    let search = "nike off white";
-    const url = `https://the-sneaker-database.p.rapidapi.com/sneakers?limit=${size}&brand=off-white`;
+    // Get the search parameter from the URL
+    let search = new URLSearchParams(window.location.search).get('search') || "off-white";
+    const url = `https://the-sneaker-database.p.rapidapi.com/sneakers?limit=${size}&brand=${encodeURIComponent(search)}`;
     const options = {
       method: 'GET',
       headers: {
@@ -61,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="sneaker-card__content">
                       <h2>${item.silhouette}</h2>
                       <h3>${item.brand}</h3>
-                      <p>$${item.retailPrice}</p>
+                      <p>$${item.estimatedMarketValue}</p>
                       <p>Release Date: ${item.releaseDate}</p>  
                       </div>
                   
@@ -139,9 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
       hideHomeFooter();
     }
   }
-
-  homeMain.addEventListener('scroll', scrollPage);
- 
 
 
 // -------------> Display Selected Sneaker Function <-------------
@@ -392,16 +426,17 @@ function showSelectedSneaker(e){
           navCartItems.forEach(navItem => {
             let sneakerPrice = navItem.querySelector('.sneaker-card__price');
             let quantityInput = navItem.querySelector('.quantity-input');
-            
+
               let navItemPrice = sneakerPrice.textContent;
               let removeDollarSign = navItemPrice.substring(1);
               let priceToNumber = parseFloat(removeDollarSign);
-      
+              
+              // form inputs return their values as strings so I had to convert the string to a number with potential decimal points
               totalSubTotal += priceToNumber * parseFloat(quantityInput.value);
            
           });
         }
-      
+        
         let navSubTotal = document.querySelector(".total-subtotal__span");
         navSubTotal.textContent = "$" + totalSubTotal.toFixed(2);
       }
