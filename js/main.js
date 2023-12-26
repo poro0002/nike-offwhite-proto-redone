@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const homePage = window.location.pathname.includes('index.html');
   const storePage = window.location.pathname.includes('store.html');
   
-  
-  if(homePage){
     document.querySelector(".nav-list li #search-icon").addEventListener('click', searchBar)
     document.querySelector(".search-bar-exit__btn").addEventListener('click', exitSearchBar)
+  
+  if(homePage){
     homeMain.addEventListener('scroll', scrollPage);
 
   } else if(storePage){
@@ -37,12 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // -------------> SearchBar Function <-------------
 
   function searchBar(){
-     console.log("is this working ?");
+    //  console.log("is this working ?");
       document.querySelector(".search-bar").classList.add("searchBar-active")
       let searchInput = document.querySelector(".search-input");
         searchInput.addEventListener('keydown', (event) => {
           if (event.key === 'Enter') {
-            searchInput.value = "";
+            
             //im sending the search param in the url over to the page im visiting then taking it and applying it to the fetch
             // encodeURIComponent takes a string and prepares it to be included as a component in a URI by replacing special characters with their URL-encoded representations. 
             window.location.href = `store.html?search=${encodeURIComponent(searchInput.value)}`;
@@ -63,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showShopSneakers(){
     
+    let noResultHeader = document.createElement("h2")
+    noResultHeader.remove();
+
     let size = 10;
     // Get the search parameter from the URL
     let search = new URLSearchParams(window.location.search).get('search') || "off-white";
@@ -84,6 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(data => {
         console.log(data) 
+            if(data.results.length === 0){
+              
+              noResultHeader.classList.add("no-result__header");
+              noResultHeader.classList.add("flex-center-row");
+              noResultHeader.textContent = "No Results Match That Search";
+              document.querySelector(".store-container").appendChild(noResultHeader);
+              return;
+            }
         let sneakers = new DocumentFragment();
             
             try {
@@ -224,7 +235,7 @@ function showSelectedSneaker(e){
       function addToAllCarts(e){
       
           updateCartFromLocalStorage();
-          
+          exitSearchBar();
 
           // navcart code
             let navCart = document.querySelector(".nav-cart");

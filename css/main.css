@@ -1407,6 +1407,11 @@ section{
       width: 80%;
   }
 
+  .no-result__header{
+    color: white;
+    grid-column: 1/ -1;
+  }
+
   .sneaker-card{
     display: flex;
     flex-direction: column;
