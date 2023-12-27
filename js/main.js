@@ -276,7 +276,7 @@ function showSelectedSneaker(e){
                 removeBtn.innerHTML = `<i class="material-icons">delete</i> Delete`;
 
                 removeBtn.addEventListener('click', ()=>{
-                  removeBtn.parentElement.remove();
+                  removeBtn.parentElement.parentElement.remove();
                   localStorage.removeItem(`localSneaker${clonedItem.getAttribute('data-id')}`);
                   updateQuantity();
                   updateSubTotal();
@@ -291,8 +291,14 @@ function showSelectedSneaker(e){
                      
               // make sure the remove btn is appended to each popout nav cart item
                  
-                  clonedItem.insertBefore(removeBtn, clonedItem.firstChild);
-                  clonedItem.appendChild(quantityInput);
+                  // clonedItem.insertBefore(removeBtn, clonedItem.firstChild);
+                  let clonedExtraContainer = document.createElement("div");
+                  clonedExtraContainer.classList.add("quant-remove__cont");
+                  clonedExtraContainer.append(quantityInput, removeBtn)
+
+                  // clonedItem.appendChild(quantityInput);
+                  // clonedItem.appendChild(removeBtn);
+                  clonedItem.appendChild(clonedExtraContainer);
 
               // select all & loop through the buttons in the targeted HTML and remove them
                   let buttonsToRemove = clonedItem.querySelectorAll('.sneaker-card-cart__btn');
@@ -402,7 +408,7 @@ function showSelectedSneaker(e){
 
           removeBtn.addEventListener('click', (e) =>{
             let currentCardItem = e.target.closest('.selected-sneaker-div');
-            removeBtn.parentElement.remove();
+            removeBtn.parentElement.parentElement.remove();
             localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
             updateQuantity(); // re-updates after deleting an item
             updateSubTotal();

@@ -1616,6 +1616,7 @@ section{
      color: var(--darkest-color);
      transition: 0.3s ease-in forwards ;
      display: inline-flex;
+     margin-left: 0.3rem;
   }
 
   .remove-item-btn:hover,
@@ -1625,12 +1626,19 @@ section{
   }
 
   .quantity-input{
-    margin-bottom: 1.5rem;
     width: 20%;
     color: white;
     padding: 0.3rem;
     background-color: transparent;
     border: 0.125rem solid white;
+  }
+
+  .quant-remove__cont{
+    margin-bottom: 1.5rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   /* Pricing total */
@@ -1839,10 +1847,9 @@ section{
 
     .cart-container{
       padding-top: var(--mobile-pd-top-cont);
-      overflow-x: scroll;
       display: grid;
       grid-template-rows: 1fr ;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr ;
       gap: 3rem;
     }
 
@@ -1870,7 +1877,8 @@ section{
 
       .cart-container{
           padding-top: var(--pc-pd-top-cont);
-          
+          grid-template-rows: 1fr ;
+          grid-template-columns: 1fr 1fr 1fr;
           
         }
     
@@ -1878,6 +1886,4 @@ section{
           font-size: var(--xlg);
         }
 
-
-    
     }
