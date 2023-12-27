@@ -25,11 +25,24 @@
         </li>
     
     </ul>
+
+          <!------------- Search Bar ---------------->
+          <div class="search-bar flex-center-row ">
+       
+            <div class="container ">
+                <a class="search-bar-exit__btn flex-align-self-center"><i id="exit-icon" class="material-icons">close</i></a>
+                <div class="search-bar__logos flex-center-row">
+                  <img class="search-bar__img" src="./content/social-media-logos/nike ow white extra.png" alt="adventure-logo">
+                  <img class="search-bar__img2" src="./content/social-media-logos/off white text logo.png" alt="off white text logo">
+                </div>
+                <input type="text" placeholder="Search" class="search-input">
+            </div>
+         </div>
     
 
  <!------------- NAVBAR ---------------->
- 
-    <nav id="nav" class="navbar">
+ <a class="nav-mobile-menu" class="link"><i id="burger-icon" class="material-icons">menu</i></a>
+    <nav id="nav" class="navbar store-navbar">
         <div class="container">
             
             <header class="logo-head-div">
@@ -46,7 +59,7 @@
                 <li><a class="link" href="#">Contact Us</a></li> 
         </ul>
         <ul class="nav-list nav-list-secondary">
-                <li><a href="" id="search-icon" class="link"><i class="material-icons">search</i></a></li>
+                <li><a id="search-icon" class="link"><i class="material-icons">search</i></a></li>
                 <li><a href="" id="cart-icon" class="link"><i class="material-icons">shopping_cart</i></a></li>
                 <li><a href="" id="account-icon" class="link"><i class="material-icons">account_circle</i></a></li>
             </ul>
@@ -54,14 +67,22 @@
         </div>
     </nav>
 
+<!------------- Nav-Cart  ---------------->
+
     <nav id="cart-nav" class="nav-cart">
         <a class="nav-cart-exit__btn"><i id="exit-icon" class="material-icons">close</i></a>
         
         <h2 class="nav-cart__h2">Cart Items</h2>
-        <ul class="nav-cart-items">
-   
-        </ul>
-        <h3 class="cart-nav__total">Total: $</h3>
+        <div class="cart-item__cont">
+            <ul class="nav-cart-items">
+    
+            </ul>
+        </div>
+
+        <div class="total-cont flex-center-column">
+            <strong class="total__subtotal">SUBTOTAL: <span class="total-subtotal__span"></span></strong>
+
+      </div>
     </nav>
 
    
@@ -70,10 +91,29 @@
 
     <main id="cart-main">
 
-         <!------------- Store Section ---------------->
+         <!------------- Cart Section ---------------->
         <section id="cart" class="cart-content" tabindex="0">
 
 
+        <!---- Local Storage Result ---->
+           <div class="cart-container container">
+             <h1 class="cart-content__h2 flex-center-row">Cart</h1>
+               
+           </div> 
+
+           <div class="total-cont flex-center-column">
+                <strong class="main-cart-subtotal">SUBTOTAL: <span class="main-cart-subtotal__span"></span></strong>
+        
+            <a class="purchaseBtn"><h1>PURCHASE</h1></a>
+              <div class="purchase-cont flex-center-column">
+                <span class="main-cart-total__span"></span>
+
+                </div>
+
+            <a class="removeBtn">Remove All</a>
+      </div>
+
+ 
          
         </section>
 
@@ -108,7 +148,7 @@
 
 </main>
 
-<a href="#page" class="to-top">To Top</a>
+<!-- <a href="#page" class="to-top">To Top</a> -->
 
     <script type="module" src="./js/main.js"></script>
     

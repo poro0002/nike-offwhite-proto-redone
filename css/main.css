@@ -59,7 +59,8 @@
           --s4: 300%;
           --b1: 400%;
 
-
+          /* PC headings use --lg
+          mobile headings use --sm */
           /* extra font sizes */
           --mobile-para: 0.5rem;
           --xsm: 0.7rem;
@@ -325,11 +326,6 @@ section{
 .hidden {
   display: none;
 }
-
-
-/* ----------------------------------------------- */
-/*------------------ PAGE 1 ------------------*/
-/* ----------------------------------------------- */
 
   /* <----- Skip Links -------------------------------> */
 
@@ -806,6 +802,11 @@ section{
   .img-s4{
     top: var(--s4)
   }
+
+
+   /* <------------------------------------------------------------> */
+/* <----------------------------- Home Page -------------------------------> */
+  /* <------------------------------------------------------------> */
 
 
 /* <----- BANNER -------------------------------> */
@@ -1377,7 +1378,7 @@ section{
   }
   
   /* <------------------------------------------------------------> */
-/* <----------------------------- Store -------------------------------> */
+/* <----------------------------- Store Page -------------------------------> */
   /* <------------------------------------------------------------> */
 
 
@@ -1638,8 +1639,8 @@ section{
      padding: 3rem 0rem;
   }
 
-  .purchaseBtn{
-     
+  .goToCartBtn{
+     text-decoration: none;
   }
 
   .removeBtn{
@@ -1679,12 +1680,6 @@ section{
     }
 
  }
-
-
-
-
-
-
 
 
 
@@ -1824,3 +1819,65 @@ section{
 
 
 }
+
+
+  /* <------------------------------------------------------------> */
+/* <----------------------------- Cart Page -------------------------------> */
+  /* <------------------------------------------------------------> */
+  
+ /*--- Cart Main ---*/
+
+
+    #cart-main{
+      background: linear-gradient(to left, var(--shade-four), var(--shade-three));
+     
+    }
+
+    #cart{
+      height: auto;
+    }
+
+    .cart-container{
+      padding-top: var(--mobile-pd-top-cont);
+      overflow-x: scroll;
+      display: grid;
+      grid-template-rows: 1fr ;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .cart-content__h2{
+      color: white;
+      grid-column: 1/ -1;
+    }
+
+    .main-cart-subtotal{
+      color: white;
+    }
+
+    .purchase-cont{
+      color: white;
+    }
+
+    .main-cart-total__span{
+       
+    }
+
+
+/* cart media queries  */
+  
+  @media only screen and (min-width: 45em){
+
+      .cart-container{
+          padding-top: var(--pc-pd-top-cont);
+          
+          
+        }
+    
+        .cart-content__h2{
+          font-size: var(--xlg);
+        }
+
+
+    
+    }

@@ -2,20 +2,24 @@
 
 // globals
 
-let storeContainer = document.querySelector(".store-container");
-let selectedShoeContainer = document.querySelector(".store-selected-container");
-let homeMain = document.getElementById('main');
+  let storeContainer = document.querySelector(".store-container");
+  let selectedShoeContainer = document.querySelector(".store-selected-container");
+  let homeMain = document.getElementById('main');
 
- // show mobile nav
+// pages
+ 
+  const homePage = window.location.pathname.includes('index.html');
+  const storePage = window.location.pathname.includes('store.html');
+  const cartPage = window.location.pathname.includes('cart.html');
+
+// show mobile nav
  let mobileNavBarMenuBtn = document.querySelector('.nav-mobile-menu');
  let navBar = document.querySelector('.navbar');
 
 // -------------> DOM Content Loaded Functions <--------------
 
 document.addEventListener('DOMContentLoaded', () => {
-  
-  const homePage = window.location.pathname.includes('index.html');
-  const storePage = window.location.pathname.includes('store.html');
+ 
   
     document.querySelector(".nav-list li #search-icon").addEventListener('click', searchBar)
     document.querySelector(".search-bar-exit__btn").addEventListener('click', exitSearchBar)
@@ -29,6 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
       document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
       updateQuantity();
+    } 
+    else if(cartPage){
+      updateCartFromLocalStorage();
+      updateQuantity();
+      document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
+      document.querySelector(".purchaseBtn").addEventListener('click', totalWithTax)
     }
 
  
@@ -62,9 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // -------------> Show Shop Sneakers Function <-------------
 
   function showShopSneakers(){
-    
-    let noResultHeader = document.createElement("h2")
-    noResultHeader.remove();
+
+      let noResultHeader = document.createElement("h2");
+      noResultHeader.remove();
 
     let size = 10;
     // Get the search parameter from the URL
@@ -88,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         console.log(data) 
             if(data.results.length === 0){
-              
               noResultHeader.classList.add("no-result__header");
               noResultHeader.classList.add("flex-center-row");
               noResultHeader.textContent = "No Results Match That Search";
@@ -218,9 +227,10 @@ function showSelectedSneaker(e){
                 <h3>${brand}</h3>
                 <p class="sneaker-card__price">${retailPrice}</p>
                 <p>${releaseDate}</p>  
-                </div>
-              <a class="sneaker-card-cart__btn flex-center-row btn--secondary">Add To Cart</a>
-              <a href="cart.html" class="sneaker-card-cart__btn flex-center-row btn">Buy</a>
+                <a class="sneaker-card-cart__btn flex-center-row btn--secondary">Add To Cart</a>
+                <a href="cart.html" class="sneaker-card-cart__btn flex-center-row btn">Buy</a>
+              </div>
+              
             `;
         sneakerFragment.appendChild(selectedSneakerDiv);
         selectedShoeContainer.appendChild(sneakerFragment);
@@ -324,8 +334,15 @@ function showSelectedSneaker(e){
   // -------------> Clear NavCart and Local Storage <--------------
 
   function removeAllItems(){
-    let navCartLiContainer = document.querySelector(".nav-cart-items");
-    navCartLiContainer.innerHTML = '';
+    if(storePage){
+      let navCartLiContainer = document.querySelector(".nav-cart-items");
+      navCartLiContainer.innerHTML = '';
+    } 
+    else if(cartPage){
+      let cartItems = document.querySelector(".cart-container");
+      cartItems.innerHTML = '';
+    }
+   
     localStorage.clear();
   }
 
@@ -335,6 +352,7 @@ function showSelectedSneaker(e){
   
   function updateCartFromLocalStorage() {
     let navCartLiContainer = document.querySelector(".nav-cart-items");
+    let mainCartContainer = document.querySelector(".cart-container");
 
     // clears whatever is in the cart
     navCartLiContainer.innerHTML = '';
@@ -358,9 +376,13 @@ function showSelectedSneaker(e){
           quantity: storedQuantity,  
           html: cartItemDiv.innerHTML,
         }
-
-         navCartLiContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
-
+        if(storePage){
+          navCartLiContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
+        }
+        else if(cartPage){
+         mainCartContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
+        }
+     
       }
     }
   }
@@ -450,7 +472,71 @@ function showSelectedSneaker(e){
         
         let navSubTotal = document.querySelector(".total-subtotal__span");
         navSubTotal.textContent = "$" + totalSubTotal.toFixed(2);
+          if(cartPage){
+            let mainCartSub = document.querySelector(".main-cart-subtotal__span");
+            mainCartSub.textContent = navSubTotal.textContent;
+          } 
       }
 
 
+// -------------> Total Price with tax <--------------
+
+  function totalWithTax(){
+    
+    let mainCartSubTotal = document.querySelector(".main-cart-subtotal__span")
+    let purchaseDiv = document.querySelector(".purchase-cont");
+    purchaseDiv.innerHTML = "";
+    
+    let grandTotalSpan = document.createElement("span")
+    grandTotalSpan.classList.add("main-cart-total__span");
+
+
+    let purchaseMessage = document.createElement('p');
+    purchaseMessage.textContent = "Thank You For Your Purchase !";
+
+    let removeDollarSign = mainCartSubTotal.textContent.substring(1);
+    let priceToNumber = parseFloat(removeDollarSign);
+    let salesTax = 0.15;
+    
+       let amountOfTax =  priceToNumber * (salesTax / 1);
+       let grandTotal = amountOfTax + priceToNumber;
+       
+
+       grandTotalSpan.textContent = "$" + grandTotal.toFixed(2);
+       purchaseDiv.appendChild(grandTotalSpan);
+       purchaseDiv.appendChild(purchaseMessage);
+  }
+
+// -------------> Show Cart Items From Local Storage <--------------
+
+// function showMainCart(){
+
+ 
+
+//   for (let item in localStorage) {
+//     if (item.startsWith('localSneaker')) {
+//       // Retrieve the HTML from local storage
+//       let storedString = localStorage.getItem(item);
+//       let storedObject = JSON.parse(storedString);
+//       let storedQuantity = storedObject.quantity;
+//       let storedDataId = storedObject.dataId;
+
+
+//       let cartItemDiv = document.createElement('div');
+//       cartItemDiv.innerHTML = storedObject.html;
+      
+//       // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again, doesn't work though
+//       let cartItemObj = {
+//         dataId: storedDataId,
+//         quantity: storedQuantity,  
+//         html: cartItemDiv.innerHTML,
+//       }
+       //let mainCartContainer = document.querySelector(".cart-container");
+       // mainCartContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
+     
+//     }
+    
+//   }
+  
+// }
 
