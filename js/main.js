@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let noResultHeader = document.createElement("h2");
       noResultHeader.remove();
 
-    let size = 10;
+    let size = 50;
     // Get the search parameter from the URL
     let search = new URLSearchParams(window.location.search).get('search') || "off-white";
     const url = `https://the-sneaker-database.p.rapidapi.com/sneakers?limit=${size}&brand=${encodeURIComponent(search)}`;
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sneaker.innerHTML = `
                   <img class="sneaker-card__img" src="${item.image.original}" alt="${item.silhouette}" />
                     <div class="sneaker-card__content">
-                      <h2>${item.silhouette}</h2>
+                      <h2>${item.name}</h2>
                       <h3>${item.brand}</h3>
                       <p>$${item.estimatedMarketValue}</p>
                       <p>Release Date: ${item.releaseDate}</p>  
@@ -225,8 +225,20 @@ function showSelectedSneaker(e){
               <div class="sneaker-card__content">
                 <h2>${silhouette}</h2>
                 <h3>${brand}</h3>
-                <p class="sneaker-card__price">${retailPrice}</p>
-                <p>${releaseDate}</p>  
+                <p class="sneaker-card__price"><strong>${retailPrice}</strong></p>
+                <p>${releaseDate}</p> 
+                <label for="size">Size:</label>
+                <select class="sneaker-card__size" id="size" name="size">
+                  <option value="6">6</option>
+                  <option value="6.5">6.5</option>
+                  <option value="7">7</option>
+                  <option value="7.5">7.5</option>
+                  <option value="8">8</option>
+                  <option value="8.5">8.5</option>
+                  <option value="9">9</option>
+                  <option value="9.5">9.5</option>
+                  <option value="10">10</option>
+                </select>
                 <a class="sneaker-card-cart__btn flex-center-row btn--secondary">Add To Cart</a>
                 <a href="cart.html" class="sneaker-card-cart__btn flex-center-row btn">Buy</a>
               </div>
@@ -253,18 +265,20 @@ function showSelectedSneaker(e){
             let navCartLiContainer = document.querySelector(".nav-cart-items");
             let itemToAdd = e.target.closest('.selected-sneaker-div');
             let dataIdToAdd = itemToAdd.getAttribute('data-id');
+            let selectedSneakerSize = document.querySelector(".sneaker-card__size").value;
             
           // Check if the item is already in the cart by matching the data-ids/ array methods return truthy falsy conditions
               let isItemInCart = Array.from(navCartLiContainer.children).some(cartItem => {
                 return cartItem.getAttribute('data-id') === dataIdToAdd;
               });
               
+
               // this variable is looping through the local storage keys and checking if the key includes the same data-id that the parent target has
               // some looks for any of the keys to match and returns boolean
               let storageIncludes = Object.keys(localStorage).some(key => key.includes(itemToAdd.getAttribute('data-id')));
               let cartItemObj;
            //if the item is not in cart and storage doesnt include it 
-              if (!isItemInCart && !storageIncludes) {
+            if (!isItemInCart && !storageIncludes) {
                 
                 let clonedItem = itemToAdd.cloneNode(true);
                 clonedItem.classList.add('nav-cart__item');
@@ -274,6 +288,8 @@ function showSelectedSneaker(e){
                 let removeBtn = document.createElement('a');
                 removeBtn.classList.add('remove-item-btn');
                 removeBtn.innerHTML = `<i class="material-icons">delete</i> Delete`;
+
+
 
                 removeBtn.addEventListener('click', ()=>{
                   removeBtn.parentElement.parentElement.remove();
@@ -287,7 +303,12 @@ function showSelectedSneaker(e){
                      quantityInput.value = 1;
                      quantityInput.classList.add('quantity-input');
                      quantityInput.type = 'number';
-    
+              
+              // add the selected size to the nav item
+              clonedItem.querySelector("label").innerHTML += ` <strong>${selectedSneakerSize}</strong>`;
+              clonedItem.querySelector('.sneaker-card__size').remove();
+              
+              
                      
               // make sure the remove btn is appended to each popout nav cart item
                  
@@ -304,11 +325,13 @@ function showSelectedSneaker(e){
                   let buttonsToRemove = clonedItem.querySelectorAll('.sneaker-card-cart__btn');
                   buttonsToRemove.forEach(button => button.remove());
 
+                  // select the size value
+
                   cartItemObj = {
                     dataId: dataIdToAdd,
-                    quantity: 1,  
+                    quantity: 1, 
+                    size:  selectedSneakerSize,
                     html: clonedItem.outerHTML,
-                  
                   };
           
                // Save the object as a JSON string to local storage
@@ -319,8 +342,35 @@ function showSelectedSneaker(e){
                   updateQuantity();
                   updateSubTotal();
               }else{
-                alert("that item is already in your bag");
-                updateQuantity();
+                
+                
+                if(itemToAdd.querySelector('.sneaker-card__size').value)
+                // if the same item exists, replace the size with what you changed on the selected sneaker and update the local storage
+                  Array.from(navCartLiContainer.children).some(cartItem => {
+                    if(cartItem.getAttribute('data-id') === dataIdToAdd){
+                      cartItem.querySelector('label strong').textContent = itemToAdd.querySelector('.sneaker-card__size').value;
+ 
+                          for (let item in localStorage) {
+                            if (item.startsWith('localSneaker')) {
+                              // Retrieve the HTML from local storage
+                              let storedString = localStorage.getItem(item);
+                              let storedObject = JSON.parse(storedString);
+                                if(storedObject.size !== selectedSneakerSize){
+                                  alert("Size Has Been Changed");
+                                }else{
+                                  alert("that item is already in your bag");
+                                }
+                                if(storedObject.dataId === dataIdToAdd){
+                                  storedObject.size = selectedSneakerSize;
+                                  localStorage.setItem(item, JSON.stringify(storedObject));
+                                }
+                              }
+                            }
+                       
+                    }
+                    updateQuantity();
+                  });
+                
               }
           // main cart code
       }
@@ -343,10 +393,12 @@ function showSelectedSneaker(e){
     if(storePage){
       let navCartLiContainer = document.querySelector(".nav-cart-items");
       navCartLiContainer.innerHTML = '';
+      updateSubTotal();
     } 
     else if(cartPage){
-      let cartItems = document.querySelector(".cart-container");
+      let cartItems = document.querySelector(".cart-container .container");
       cartItems.innerHTML = '';
+      updateSubTotal();
     }
    
     localStorage.clear();
@@ -358,7 +410,7 @@ function showSelectedSneaker(e){
   
   function updateCartFromLocalStorage() {
     let navCartLiContainer = document.querySelector(".nav-cart-items");
-    let mainCartContainer = document.querySelector(".cart-container");
+    let mainCartContainer = document.querySelector(".cart-container .container");
 
     // clears whatever is in the cart
     navCartLiContainer.innerHTML = '';
@@ -371,6 +423,7 @@ function showSelectedSneaker(e){
         let storedObject = JSON.parse(storedString);
         let storedQuantity = storedObject.quantity;
         let storedDataId = storedObject.dataId;
+        let storedSize = storedObject.size;
 
 
         let cartItemDiv = document.createElement('div');
@@ -380,7 +433,9 @@ function showSelectedSneaker(e){
         let cartItemObj = {
           dataId: storedDataId,
           quantity: storedQuantity,  
+          size: storedSize,
           html: cartItemDiv.innerHTML,
+          
         }
         if(storePage){
           navCartLiContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
@@ -412,14 +467,17 @@ function showSelectedSneaker(e){
             localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
             updateQuantity(); // re-updates after deleting an item
             updateSubTotal();
-          })
+          });
 
+
+        // quantities input event listener
           quantityInput.addEventListener("input", () => {
             for (let item in localStorage) {
               if (item.startsWith('localSneaker')) {
                 // Retrieve the HTML from local storage
                 let storedString = localStorage.getItem(item);
                 let storedObject = JSON.parse(storedString);
+                
 
                   if(navCartItemDataId === storedObject.dataId){
                     storedObject.quantity = quantityInput.value; // here
@@ -488,7 +546,7 @@ function showSelectedSneaker(e){
 // -------------> Total Price with tax <--------------
 
   function totalWithTax(){
-    
+    let navCartItems = document.querySelectorAll(".nav-cart__item");
     let mainCartSubTotal = document.querySelector(".main-cart-subtotal__span")
     let purchaseDiv = document.querySelector(".purchase-cont");
     purchaseDiv.innerHTML = "";
@@ -498,7 +556,7 @@ function showSelectedSneaker(e){
 
 
     let purchaseMessage = document.createElement('p');
-    purchaseMessage.textContent = "Thank You For Your Purchase !";
+    
 
     let removeDollarSign = mainCartSubTotal.textContent.substring(1);
     let priceToNumber = parseFloat(removeDollarSign);
@@ -509,8 +567,17 @@ function showSelectedSneaker(e){
        
 
        grandTotalSpan.textContent = "$" + grandTotal.toFixed(2);
-       purchaseDiv.appendChild(grandTotalSpan);
-       purchaseDiv.appendChild(purchaseMessage);
+
+       if(navCartItems.length > 0){
+          purchaseDiv.appendChild(grandTotalSpan);
+
+          purchaseMessage.textContent = "Thank You For Your Purchase !";
+          purchaseDiv.appendChild(purchaseMessage);
+       }else{
+          purchaseMessage.textContent = "You Have No Items In Your Cart";
+          purchaseDiv.appendChild(purchaseMessage);
+       }
+       
   }
 
 // -------------> Show Cart Items From Local Storage <--------------

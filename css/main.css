@@ -1426,13 +1426,25 @@ section{
     background-color: transparent; 
     backdrop-filter: blur(1rem);
     box-shadow: var(--white-box-shadow); 
-    background: rgba(0, 0, 0, 0.3);;
+    background: rgba(0, 0, 0, 0.3);
     
 
     border-radius: 1.5rem; 
     padding: 2rem;
     color: white;
     text-decoration: none;
+  }
+
+  .sneaker-card__size{
+
+    width: 5rem;
+
+    background-color: transparent; 
+    padding: 0.3rem;
+    border: 0.125rem solid white;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    margin-left: 0.5rem;
   }
 
   .sneaker-card__content{ 
@@ -1635,6 +1647,7 @@ section{
 
   .quant-remove__cont{
     margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
 
     display: flex;
     justify-content: flex-start;
@@ -1670,6 +1683,11 @@ section{
       width: 30%;
     }
 
+    .nav-cart__item{
+    width: auto;
+      
+    }
+
   }
 
   @media only screen and (min-width: 60em){
@@ -1685,6 +1703,11 @@ section{
 
     .quantity-input{
       width: 50%;
+    }
+
+    .nav-cart__item{
+      width: auto;
+      
     }
 
  }
@@ -1846,11 +1869,28 @@ section{
     }
 
     .cart-container{
+
       padding-top: var(--mobile-pd-top-cont);
+      padding: 2rem;
+   
+    }
+
+    .cart-container .container{
       display: grid;
       grid-template-rows: 1fr ;
       grid-template-columns: 1fr ;
       gap: 3rem;
+      
+      padding: 4rem;
+      border-radius: 1.5rem; 
+      background-color: transparent; 
+      backdrop-filter: blur(1rem);
+      box-shadow: var(--white-box-shadow); 
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-margin__div{
+
     }
 
     .cart-content__h2{
@@ -1876,14 +1916,23 @@ section{
   @media only screen and (min-width: 45em){
 
       .cart-container{
-          padding-top: var(--pc-pd-top-cont);
+         
+      }
+
+      .cart-container .container{
+         
           grid-template-rows: 1fr ;
           grid-template-columns: 1fr 1fr 1fr;
           
         }
+
+        .cart-margin__div{
+          margin-top: 7rem;
+        }
     
         .cart-content__h2{
           font-size: var(--xlg);
+          
         }
 
     }
