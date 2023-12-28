@@ -113,8 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 sneaker.setAttribute("data-id", `${item.id}`)  // change this to a link to view each shoe individually 
                 sneaker.classList.add('sneaker-card') 
                 //  sneaker.classList.add('flex-center-column') 
+                
+                const imgSrc = item.image.original || "content/social-media-logos/no-image-icon-23494.png";
+
                 sneaker.innerHTML = `
-                  <img class="sneaker-card__img" src="${item.image.original}" alt="${item.silhouette}" />
+                  <img class="sneaker-card__img" src="${imgSrc}" alt="${item.silhouette}" />
                     <div class="sneaker-card__content">
                       <h2>${item.name}</h2>
                       <h3>${item.brand}</h3>
@@ -124,6 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
                   
                   `;
                   // <a class="sneaker-card__btn flex-center-row btn">Buy</a>
+                
+                //  if(!sneaker.querySelector(".sneaker-card__img").src){
+                //   sneaker.querySelector(".sneaker-card__img").src = "content/social-media-logos/no-image-icon-23494.png";
+                // }
                 sneakers.appendChild(sneaker);
               });
               // Append the DocumentFragment to the container in the DOM
@@ -341,10 +348,7 @@ function showSelectedSneaker(e){
                   navCartLiContainer.appendChild(clonedItem);
                   updateQuantity();
                   updateSubTotal();
-              }else{
-                
-                
-                if(itemToAdd.querySelector('.sneaker-card__size').value)
+              } else{
                 // if the same item exists, replace the size with what you changed on the selected sneaker and update the local storage
                   Array.from(navCartLiContainer.children).some(cartItem => {
                     if(cartItem.getAttribute('data-id') === dataIdToAdd){
@@ -355,11 +359,13 @@ function showSelectedSneaker(e){
                               // Retrieve the HTML from local storage
                               let storedString = localStorage.getItem(item);
                               let storedObject = JSON.parse(storedString);
-                                if(storedObject.size !== selectedSneakerSize){
+
+                               if(storedObject.size !== selectedSneakerSize){
                                   alert("Size Has Been Changed");
                                 }else{
                                   alert("that item is already in your bag");
                                 }
+
                                 if(storedObject.dataId === dataIdToAdd){
                                   storedObject.size = selectedSneakerSize;
                                   localStorage.setItem(item, JSON.stringify(storedObject));
