@@ -195,13 +195,37 @@ document.addEventListener('DOMContentLoaded', () => {
     let winScroll = homeMain.scrollTop;
     let height1 = homeMain.scrollHeight - document.documentElement.clientHeight;
     let percent = (winScroll / height1) * 100
-    // console.log(percent);
+
+    let pll1 = document.querySelector(".pll-1")
+    let pll2 = document.querySelector(".pll-2")
+    let pll3 = document.querySelector(".pll-3")
+    let pll4 = document.querySelector(".pll-4")
+    
+    console.log(percent);
 
     if(percent >= 100){
       showHomeFooter();
     }else if(percent <= 99){
       hideHomeFooter();
     }
+
+    [pll1, pll2, pll3, pll4].forEach(icon => {
+      icon.classList.remove("active-page-location__icon");
+    });
+  
+    if (percent < 33.3) {
+      pll1.classList.add("active-page-location__icon");
+    } else if (percent < 66.6) {
+      pll2.classList.add("active-page-location__icon");
+    } else if (percent < 100) {
+      pll3.classList.add("active-page-location__icon");
+    } else {
+      pll4.classList.add("active-page-location__icon");
+    }
+  
+
+
+
   }
 
 
@@ -263,7 +287,7 @@ function showSelectedSneaker(e){
       // Pop out/main Cart function
       function addToAllCarts(e){
       
-          updateCartFromLocalStorage();
+         
           exitSearchBar();
 
           // navcart code
@@ -272,8 +296,8 @@ function showSelectedSneaker(e){
             let navCartLiContainer = document.querySelector(".nav-cart-items");
             let itemToAdd = e.target.closest('.selected-sneaker-div');
             let dataIdToAdd = itemToAdd.getAttribute('data-id');
-            let selectedSneakerSize = document.querySelector(".sneaker-card__size").value;
-            
+            let selectedSneakerSize = itemToAdd.querySelector(".sneaker-card__size").value;
+            updateCartFromLocalStorage(selectedSneakerSize);
           // Check if the item is already in the cart by matching the data-ids/ array methods return truthy falsy conditions
               let isItemInCart = Array.from(navCartLiContainer.children).some(cartItem => {
                 return cartItem.getAttribute('data-id') === dataIdToAdd;
@@ -359,16 +383,14 @@ function showSelectedSneaker(e){
                               // Retrieve the HTML from local storage
                               let storedString = localStorage.getItem(item);
                               let storedObject = JSON.parse(storedString);
-
-                               if(storedObject.size !== selectedSneakerSize){
-                                  alert("Size Has Been Changed");
-                                }else{
-                                  alert("that item is already in your bag");
-                                }
-
-                                if(storedObject.dataId === dataIdToAdd){
+                              // if the data ids match when adding && if the size has been changed 
+                                if(storedObject.dataId === dataIdToAdd && storedObject.size !== selectedSneakerSize){
+                                    alert("Size Has Been Changed");
                                   storedObject.size = selectedSneakerSize;
                                   localStorage.setItem(item, JSON.stringify(storedObject));
+                             // if the data ids match && if the size HASN'T been changed 
+                                }else if(storedObject.dataId === dataIdToAdd && storedObject.size === selectedSneakerSize){
+                                    alert("that item is already in your bag");
                                 }
                               }
                             }
@@ -414,7 +436,7 @@ function showSelectedSneaker(e){
 
 // in this function it grabs all of the sneakerItems local storage data and loops through them and displays it in the nav-cart-items container
   
-  function updateCartFromLocalStorage() {
+  function updateCartFromLocalStorage(newSize) {
     let navCartLiContainer = document.querySelector(".nav-cart-items");
     let mainCartContainer = document.querySelector(".cart-container .container");
 
@@ -435,14 +457,20 @@ function showSelectedSneaker(e){
         let cartItemDiv = document.createElement('div');
         cartItemDiv.innerHTML = storedObject.html;
         
-        // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again, doesn't work though
+        
+        
+        // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again
         let cartItemObj = {
           dataId: storedDataId,
           quantity: storedQuantity,  
           size: storedSize,
           html: cartItemDiv.innerHTML,
-          
         }
+         
+        cartItemDiv.querySelector("label strong").textContent = newSize; 
+       
+       
+
         if(storePage){
           navCartLiContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
         }

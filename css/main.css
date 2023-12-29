@@ -327,6 +327,7 @@ section{
   display: none;
 }
 
+
   /* <----- Skip Links -------------------------------> */
 
 .skip-links{
@@ -522,7 +523,64 @@ section{
      }
 
 }
+
+/* <----------------------- Page Location Bar -------------------------------> */
+
+  .page-location{
+    position: fixed;
+    left: 5%;
+    top: 40%;
+    z-index: 100000;
+    
+  }
+
+  .page-location__cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .page-location__links{
+     color: gray;
+     margin-bottom: 3rem;
+  }
+
+  .page-location__links:hover,
+  .page-location__links:focus{
+    color: white;
+ }
+
+  .page-location__cont ul{
+
+  }
+
+
+.active-page-location__icon{
+  filter: drop-shadow(var(--white-box-shadow));
+  color: white;
+}
+
+@media only screen and (min-width: 45em){
   
+  .page-location{
+    /* left: 5%;
+    top: 50%; */
+  }
+  
+  .page-location__cont{
+        
+  }
+  
+  .page-location__links{
+  
+  }
+  
+  .page-location__cont ul{
+    
+  }  
+    
+}
 
 /* <----------------------- NAVBAR -------------------------------> */
 
