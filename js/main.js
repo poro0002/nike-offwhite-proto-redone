@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pll3 = document.querySelector(".pll-3")
     let pll4 = document.querySelector(".pll-4")
     
-    console.log(percent);
+    // console.log(percent);
 
     if(percent >= 100){
       showHomeFooter();
@@ -271,7 +271,7 @@ function showSelectedSneaker(e){
                   <option value="10">10</option>
                 </select>
                 <a class="sneaker-card-cart__btn flex-center-row btn--secondary">Add To Cart</a>
-                <a href="cart.html" class="sneaker-card-cart__btn flex-center-row btn">Buy</a>
+                <a href="cart.html" class="sneaker-card-buy__btn flex-center-row btn">Buy</a>
               </div>
               
             `;

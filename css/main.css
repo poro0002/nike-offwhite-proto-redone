@@ -389,9 +389,8 @@ section{
         border-radius: 0.2rem;
         margin: 0.2rem;
         text-decoration: none;
-        background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
         border: none;
-        box-shadow: var(--black-box-shadow);
+        box-shadow: var(--white-box-shadow);
         color: white;
         
       }
@@ -411,7 +410,9 @@ section{
     .support__btn:hover,
     .support__btn:focus,
     .sneaker-card-cart__btn:hover,
-    .sneaker-card-cart__btn:focus{
+    .sneaker-card-cart__btn:focus,
+    .sneaker-card-buy__btn:hover,
+    .sneaker-card-buy__btn:focus{
       transition: ease-in-out 0.3s !important;
       transform: scale(1.03) !important;
       filter: drop-shadow(0 0.25rem 0.5rem #000000);
@@ -986,10 +987,11 @@ section{
       padding: var(--pc-btn); 
       color: white;
       font-size: var(--xlg);
+      background-color: transparent;
     }
 
     .banner__img{
-      width: 15rem;
+      width: 10rem;
     }
 
     
@@ -1105,10 +1107,13 @@ section{
     filter: drop-shadow(0 0.25rem 0.5rem #000000);
   }
 
-  .products__btn{
+   .products__btn{
       padding: var(--mobile-btn);
       font-size: var(--sm);
       color: white;
+      background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
+      box-shadow: var(--black-box-shadow);
+
   }
 
   .products-btn__innerText{
@@ -1183,6 +1188,8 @@ section{
   .support__btn{
     padding: var(--mobile-btn);
     font-size: var(--sm);
+    background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
+    box-shadow: var(--black-box-shadow);
   }
 
 
@@ -1588,11 +1595,21 @@ section{
   }
 
  .sneaker-card-cart__btn{
-  margin-top: 1rem;
-  padding: var(--mobile-btn);
-  font-size: var(--sm);
-  /* background-color: var(--secondary-color); */
+    margin-top: 1rem;
+    padding: var(--mobile-btn);
+    font-size: var(--sm);
+    
+    
   }
+
+  .sneaker-card-buy__btn{
+    margin-top: 1rem;
+    padding: var(--mobile-btn);
+    font-size: var(--sm);
+    background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
+    box-shadow: var(--black-box-shadow);
+  }
+  
 
   #back-icon{
     margin-right: 0.5rem ;
@@ -1612,7 +1629,7 @@ section{
        padding-bottom: 10rem;
      }
 
-     .sneaker-card-cart__btn{
+     .sneaker-card-cart__btn, .sneaker-card-buy__btn {
       font-size: var(--lg);
       padding: var(--pc-btn);
       margin-top: 1.5rem;
