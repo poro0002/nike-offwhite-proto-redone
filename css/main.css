@@ -535,7 +535,7 @@ section{
     position: fixed;
     left: 5%;
     top: 30%;
-    z-index: 1000;
+    z-index: 999;
     
   }
 
@@ -597,7 +597,7 @@ section{
     background: rgba(0, 0, 0, 0.97);
     overflow: hidden;
     position: fixed;
-    z-index: 1000; 
+    z-index: 1001; 
     width: 100%;
     padding: 1rem;
     height: 100%;
@@ -607,13 +607,64 @@ section{
     /* ----- hide the main banner when you open the mini mobile navbar so you can keep the background semi transparent */
   }
 
+  /* Account Drop Down */
 
-   /* ACTIVE CLASS */
+   .account-drop-down{
+    
+   }
+
+  .drop-down__content{
+    position: absolute;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.97);
+    opacity: 0;
+    transition: ease .3s ;
+    color: white;
+
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    gap: 3rem;
+  }
+
+  .drop-down__content a{
+    text-decoration: none;
+    font-size: var(--sm);
+   
+  }
+
+  /* drop-down media query */
+
+  @media only screen and (min-width: 45em){
+
+      .drop-down__content{
+        
+        gap: 1rem;
+        top: 7%;
+        left: calc(100% - 10rem);
+        padding: 1.5rem 2rem;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        
+      }
+
+  }
+
+
+   /* ACTIVE CLASSES */
 
   .navbar-active{
     animation: navLinkFade 0.3s ease-in-out forwards;
   }
 
+  .drop-down-active{
+    transition: ease .3s ;
+    opacity: 1;
+  }
+
+   /* ACTIVE CLASSES */
 
 
   .nav-mobile-menu{
@@ -807,6 +858,17 @@ section{
         top: 75%;
         left: 26%;
         width: 50%;
+      }
+
+      .drop-down__content{
+        gap: 1rem;
+        /* top: 5rem;
+        right: 45rem; */
+        padding: 1.5rem 2rem;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        
       }
 
    

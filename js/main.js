@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     document.querySelector(".nav-list li #search-icon").addEventListener('click', searchBar)
     document.querySelector(".search-bar-exit__btn").addEventListener('click', exitSearchBar)
+    showAccountDropDown();
   
   if(homePage){
     homeMain.addEventListener('scroll', scrollPage);
@@ -95,18 +96,35 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.home-footer').classList.remove('visible');
  }
 
+ function showAccountDropDown(){
+   let accountIcon = document.querySelector("#account-icon");
+  
+   accountIcon.addEventListener("click", () => {
+      document.querySelector('.drop-down__content').classList.toggle('drop-down-active');
+      
+    });
+
+ 
+
+ }
+
 // mobile navbar
 
  mobileNavBarMenuBtn.addEventListener('click', showMobileNav);
 
  function showMobileNav(){
    navBar.classList.toggle("navbar-active"); // translates to the regular position with this animation class added
-   
+   document.querySelector('.drop-down__content').classList.remove('drop-down-active');
+
    const navLinks = document.querySelectorAll('.link');
    navLinks.forEach((link) => {
     link.addEventListener('click', () => {
       // Close the mobile navbar when a link is clicked
       navBar.classList.remove('navbar-active');
+      if(link.id !== "account-icon"){
+        document.querySelector('.drop-down__content').classList.remove('drop-down-active');
+      }
+      
     });
   });
 }
