@@ -405,6 +405,8 @@ section{
         color: white;
     }
     
+    /* selected btn hovers */
+
     .products__btn:hover,
     .products__btn:focus,
     .support__btn:hover,
@@ -412,7 +414,9 @@ section{
     .sneaker-card-cart__btn:hover,
     .sneaker-card-cart__btn:focus,
     .sneaker-card-buy__btn:hover,
-    .sneaker-card-buy__btn:focus{
+    .sneaker-card-buy__btn:focus,
+    .banner__btn:hover,
+    .banner__btn:focus{
       transition: ease-in-out 0.3s !important;
       transform: scale(1.03) !important;
       filter: drop-shadow(0 0.25rem 0.5rem #000000);
@@ -530,8 +534,8 @@ section{
   .page-location{
     position: fixed;
     left: 5%;
-    top: 40%;
-    z-index: 100000;
+    top: 30%;
+    z-index: 1000;
     
   }
 
@@ -565,8 +569,8 @@ section{
 @media only screen and (min-width: 45em){
   
   .page-location{
-    /* left: 5%;
-    top: 50%; */
+    left: 5%;
+    top: 40%;
   }
   
   .page-location__cont{
@@ -707,7 +711,7 @@ section{
     display: block;
     padding: 1.5rem;
     cursor: pointer; 
-   
+    font-size: var(--sm);
   }
 
   .nav-list-secondary li .link{
@@ -745,6 +749,7 @@ section{
   
   .nav-logo{
      width: 3em;
+     
   }
   
   /* Web Media Queries */   
@@ -756,7 +761,7 @@ section{
         background: none;
         display: flex;
         flex-direction: row;
-        border-top: 0.5rem solid var(--primary-color2);
+        /* border-top: 0.5rem solid var(--primary-color2); */
         transform: translateX(0);
     }
 
@@ -772,15 +777,21 @@ section{
       align-items: center;  
 
     }
+
+    .nav-list li .link {
+      font-size: var(--md);
+    }
     
     .link{
       text-decoration: none;
       color: white; 
+     
     }
     
     .nav-logo {
         display: flex;
         flex-direction: row;
+        margin-right: 1.5rem;
     }
 
     
@@ -909,7 +920,7 @@ section{
   
   
   .banner__header{
-    color: var(--secondary-color);
+    color: var(--primary-color2);
     font-size: var(--md);
     animation: HeadFadeIn 0.8s ease-in-out forwards;  /* needs javascript to toggle the animation class */
     padding-top: 2rem;
@@ -1983,6 +1994,10 @@ section{
 
     .main-cart-total__span{
        
+    }
+
+    .empty-cart-h3{
+      color: white;
     }
 
 

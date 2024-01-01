@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateQuantity();
       document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
       document.querySelector(".purchaseBtn").addEventListener('click', totalWithTax)
+      checkCartLength();
     }
 
  
@@ -67,84 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     searchBar.classList.remove("searchBar-active");
 
   }
-
-
-// -------------> Show Shop Sneakers Function <-------------
-
-  function showShopSneakers(){
-
-      let noResultHeader = document.createElement("h2");
-      noResultHeader.remove();
-
-    let size = 50;
-    // Get the search parameter from the URL
-    let search = new URLSearchParams(window.location.search).get('search') || "off-white";
-    const url = `https://the-sneaker-database.p.rapidapi.com/sneakers?limit=${size}&brand=${encodeURIComponent(search)}`;
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '5934dcae4emsh53f2cc4849fe19ap102d6ajsne10268c7d327',
-        'X-RapidAPI-Host': 'the-sneaker-database.p.rapidapi.com'
-      }
-    };
-
-    fetch(url, options)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data) 
-            if(data.results.length === 0){
-              noResultHeader.classList.add("no-result__header");
-              noResultHeader.classList.add("flex-center-row");
-              noResultHeader.textContent = "No Results Match That Search";
-              document.querySelector(".store-container").appendChild(noResultHeader);
-              return;
-            }
-        let sneakers = new DocumentFragment();
-            
-            try {
-              // Iterate through the products and create elements for each
-              data.results.forEach(item => {
-                let sneaker = document.createElement('a'); 
-                sneaker.setAttribute("data-id", `${item.id}`)  // change this to a link to view each shoe individually 
-                sneaker.classList.add('sneaker-card') 
-                //  sneaker.classList.add('flex-center-column') 
-                
-                const imgSrc = item.image.original || "content/social-media-logos/no-image-icon-23494.png";
-
-                sneaker.innerHTML = `
-                  <img class="sneaker-card__img" src="${imgSrc}" alt="${item.silhouette}" />
-                    <div class="sneaker-card__content">
-                      <h2>${item.name}</h2>
-                      <h3>${item.brand}</h3>
-                      <p>$${item.estimatedMarketValue}</p>
-                      <p>Release Date: ${item.releaseDate}</p>  
-                      </div>
-                  
-                  `;
-                  // <a class="sneaker-card__btn flex-center-row btn">Buy</a>
-                
-                //  if(!sneaker.querySelector(".sneaker-card__img").src){
-                //   sneaker.querySelector(".sneaker-card__img").src = "content/social-media-logos/no-image-icon-23494.png";
-                // }
-                sneakers.appendChild(sneaker);
-              });
-              // Append the DocumentFragment to the container in the DOM
-              storeContainer.appendChild(sneakers)    
-            } catch (error) {
-              console.log("The function could not be completed", error);
-            }
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-
-      });
-
-  };
 
 // -------------> Store Toggle Functions <--------------
 
@@ -222,11 +145,133 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       pll4.classList.add("active-page-location__icon");
     }
-  
-
-
 
   }
+
+    // -------------> Clear NavCart and Local Storage <--------------
+
+    function removeAllItems(){
+   
+      if(storePage){
+        let navCartLiContainer = document.querySelector(".nav-cart-items");
+        navCartLiContainer.innerHTML = '';
+        updateSubTotal();
+      } 
+      else if(cartPage){
+        let cartItems = document.querySelector(".cart-container .container");
+        cartItems.innerHTML = '';
+        updateSubTotal();
+     
+      }
+     
+      localStorage.clear();
+      checkCartLength();
+    }
+
+  // -------------> Check Cart Length <--------------
+  
+    function checkCartLength(){
+      let cartContainer = document.querySelector(".cart-container .container");
+      let cartItems = cartContainer.querySelectorAll('.container .selected-sneaker-div');
+      let existingMessage = cartContainer.querySelector('.empty-cart-h3');
+      // console.log(cartItems)
+      
+      if(cartItems.length === 0){
+
+        cartContainer.style = "grid-template-columns: 1fr"
+
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+    
+        let noItemsMessage = document.createElement('h3');
+        noItemsMessage.classList.add("empty-cart-h3");
+        noItemsMessage.textContent = "Your Cart Is Empty !";
+        cartContainer.appendChild(noItemsMessage);
+  
+      }
+    }
+
+
+
+
+// -------------> Show Shop Sneakers Function <-------------
+
+  function showShopSneakers(){
+
+    let noResultHeader = document.createElement("h2");
+    noResultHeader.remove();
+
+  let size = 50;
+  // Get the search parameter from the URL
+  let search = new URLSearchParams(window.location.search).get('search') || "off-white";
+  const url = `https://the-sneaker-database.p.rapidapi.com/sneakers?limit=${size}&brand=${encodeURIComponent(search)}`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '5934dcae4emsh53f2cc4849fe19ap102d6ajsne10268c7d327',
+      'X-RapidAPI-Host': 'the-sneaker-database.p.rapidapi.com'
+    }
+  };
+
+  fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data) 
+          if(data.results.length === 0){
+            noResultHeader.classList.add("no-result__header");
+            noResultHeader.classList.add("flex-center-row");
+            noResultHeader.textContent = "No Results Match That Search";
+            document.querySelector(".store-container").appendChild(noResultHeader);
+            return;
+          }
+      let sneakers = new DocumentFragment();
+          
+          try {
+            // Iterate through the products and create elements for each
+            data.results.forEach(item => {
+              let sneaker = document.createElement('a'); 
+              sneaker.setAttribute("data-id", `${item.id}`)  // change this to a link to view each shoe individually 
+              sneaker.classList.add('sneaker-card') 
+              //  sneaker.classList.add('flex-center-column') 
+              
+              const imgSrc = item.image.original || "content/social-media-logos/no-image-icon-23494.png";
+
+              sneaker.innerHTML = `
+                <img class="sneaker-card__img" src="${imgSrc}" alt="${item.silhouette}" />
+                  <div class="sneaker-card__content">
+                    <h2>${item.name}</h2>
+                    <h3>${item.brand}</h3>
+                    <p>$${item.estimatedMarketValue}</p>
+                    <p>Release Date: ${item.releaseDate}</p>  
+                    </div>
+                
+                `;
+                // <a class="sneaker-card__btn flex-center-row btn">Buy</a>
+              
+              //  if(!sneaker.querySelector(".sneaker-card__img").src){
+              //   sneaker.querySelector(".sneaker-card__img").src = "content/social-media-logos/no-image-icon-23494.png";
+              // }
+              sneakers.appendChild(sneaker);
+            });
+            // Append the DocumentFragment to the container in the DOM
+            storeContainer.appendChild(sneakers)    
+          } catch (error) {
+            console.log("The function could not be completed", error);
+          }
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+
+    });
+
+};
+  
 
 
 // -------------> Display Selected Sneaker Function <-------------
@@ -353,8 +398,10 @@ function showSelectedSneaker(e){
                   clonedItem.appendChild(clonedExtraContainer);
 
               // select all & loop through the buttons in the targeted HTML and remove them
-                  let buttonsToRemove = clonedItem.querySelectorAll('.sneaker-card-cart__btn');
-                  buttonsToRemove.forEach(button => button.remove());
+                  let cartBtnToRemove = clonedItem.querySelector('.sneaker-card-cart__btn');
+                  let buyBtnToRemove = clonedItem.querySelector('.sneaker-card-buy__btn');
+                  cartBtnToRemove.remove();
+                  buyBtnToRemove.remove();
 
                   // select the size value
 
@@ -415,22 +462,6 @@ function showSelectedSneaker(e){
 
   }
 
-  // -------------> Clear NavCart and Local Storage <--------------
-
-  function removeAllItems(){
-    if(storePage){
-      let navCartLiContainer = document.querySelector(".nav-cart-items");
-      navCartLiContainer.innerHTML = '';
-      updateSubTotal();
-    } 
-    else if(cartPage){
-      let cartItems = document.querySelector(".cart-container .container");
-      cartItems.innerHTML = '';
-      updateSubTotal();
-    }
-   
-    localStorage.clear();
-  }
 
 // -------------> Update Cart With Local Storage Function <--------------
 
@@ -501,6 +532,7 @@ function showSelectedSneaker(e){
             localStorage.removeItem(`localSneaker${currentCardItem.getAttribute('data-id')}`);
             updateQuantity(); // re-updates after deleting an item
             updateSubTotal();
+            checkCartLength();
           });
 
 
@@ -604,7 +636,7 @@ function showSelectedSneaker(e){
 
        if(navCartItems.length > 0){
           purchaseDiv.appendChild(grandTotalSpan);
-
+          
           purchaseMessage.textContent = "Thank You For Your Purchase !";
           purchaseDiv.appendChild(purchaseMessage);
        }else{
@@ -614,36 +646,6 @@ function showSelectedSneaker(e){
        
   }
 
-// -------------> Show Cart Items From Local Storage <--------------
-
-// function showMainCart(){
-
- 
-
-//   for (let item in localStorage) {
-//     if (item.startsWith('localSneaker')) {
-//       // Retrieve the HTML from local storage
-//       let storedString = localStorage.getItem(item);
-//       let storedObject = JSON.parse(storedString);
-//       let storedQuantity = storedObject.quantity;
-//       let storedDataId = storedObject.dataId;
 
 
-//       let cartItemDiv = document.createElement('div');
-//       cartItemDiv.innerHTML = storedObject.html;
-      
-//       // added cartItemObject again so its properties can be can be re-updated/stringed to storage whenever the function runs again, doesn't work though
-//       let cartItemObj = {
-//         dataId: storedDataId,
-//         quantity: storedQuantity,  
-//         html: cartItemDiv.innerHTML,
-//       }
-       //let mainCartContainer = document.querySelector(".cart-container");
-       // mainCartContainer.insertAdjacentHTML('beforeend', cartItemObj.html);
-     
-//     }
-    
-//   }
-  
-// }
 
