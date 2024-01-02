@@ -247,6 +247,19 @@ section{
 }
 
 
+@keyframes dropDown {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+  0% {
+      opacity: 0;
+  }
+}
+
+
 @keyframes HeadFadeIn {
   0% {
       
@@ -321,6 +334,10 @@ section{
 
 .visible {
   display: block;
+}
+
+.visible-grid{
+  display: grid;
 }
 
 .hidden {
@@ -416,7 +433,9 @@ section{
     .sneaker-card-buy__btn:hover,
     .sneaker-card-buy__btn:focus,
     .banner__btn:hover,
-    .banner__btn:focus{
+    .banner__btn:focus,
+    .form-btn:hover,
+    .form-btn:focus{
       transition: ease-in-out 0.3s !important;
       transform: scale(1.03) !important;
       filter: drop-shadow(0 0.25rem 0.5rem #000000);
@@ -615,12 +634,11 @@ section{
 
   .drop-down__content{
     position: absolute;
+    display: none;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.97);
-    opacity: 0;
-    transition: ease .3s ;
     color: white;
-
+    
     top: 0;
     left: 0;
     height: 100%;
@@ -660,8 +678,8 @@ section{
   }
 
   .drop-down-active{
-    transition: ease .3s ;
-    opacity: 1;
+    display: flex;
+    animation: dropDown ease-in 0.5s ;
   }
 
    /* ACTIVE CLASSES */
@@ -860,18 +878,6 @@ section{
         width: 50%;
       }
 
-      .drop-down__content{
-        gap: 1rem;
-        /* top: 5rem;
-        right: 45rem; */
-        padding: 1.5rem 2rem;
-        width: auto;
-        height: auto;
-        background-color: transparent;
-        
-      }
-
-   
     
   }
 
@@ -1225,37 +1231,37 @@ section{
 
   /* <----- Support -------------------------------> */
 
-  .support-content{
+  .support-home-content{
     background: linear-gradient(to bottom, var(--shade-three), var(--shade-one)); 
     width: 100%;
     height: 100vh;
   }
 
-  .support-content .container{
+  .support-home-content .container{
     display: grid;
     padding-top: var(--mobile-pd-top-cont);
     height: 80%;
   }
 
-  .support-case-gd2{
-   
+  .support-home-case-gd2{
+  
   }
 
-  .support-case{
+  .support-home-case{
     text-align: center;
     color: white;
     margin: 0.1rem;
   }
 
-  .support-case p{
+  .support-home-case p{
     font-size: var(--mobile-para);
   }
 
-  .support__h1{
+  .support-home__h1{
      color: white;
      font-size: var(--sm);
      padding: 0;
-     margin: 0;
+     margin-bottom: 1.5rem;
   }
 
   .support__btn{
@@ -1267,7 +1273,7 @@ section{
 
 
   @media only screen and (min-width: 45em){
-    .support-content .container{
+    .support-home-content .container{
       padding-top: var(--pc-pd-top-cont);
     }
 
@@ -1276,19 +1282,19 @@ section{
       font-size: var(--lg);
     }
 
-    .support__h1{
+    .support-home__h1{
        font-size: var(--lg);
     }
 
-    .support-case p{
+    .support-home-case p{
       font-size: var(--sm);
     }
 
-    .support-case{
+    .support-home-case{
       margin: 0.4rem;
     }
 
-    .support-case-gd2{
+    .support-home-case-gd2{
         padding: 0;
         margin: 0;
     }
@@ -2088,3 +2094,256 @@ section{
         }
 
     }
+
+
+     /* ----------------------------------------------- */
+/*------------------ Login ------------------*/
+/* ----------------------------------------------- */
+
+  /* ---------- form ---------- */
+    
+/* mobile first */
+
+#account-main{
+  background: linear-gradient(to left, var(--shade-four), var(--shade-three));
+}
+
+.account-content{
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.login__wrap{
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3rem);
+    color: white;
+    border-radius: 1.5rem;
+    box-shadow:var(--white-box-shadow);
+    overflow: hidden;
+}
+
+.form-grid{
+    padding: 3rem 2.5rem;
+    display: grid;
+    --cols: 1;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: 1.5rem;
+}
+
+.login__title{
+    margin-bottom: 0;
+    font-size: 2.5rem;
+}
+
+input, select, textarea {
+    color: black;
+    background-color: white;
+    font-weight: 200;
+}
+
+
+.checkbox{
+    width: 1rem;
+    height: 1rem;
+
+}
+
+
+
+#email-radio, #tel-radio{
+    width: 1rem;
+    height: 1rem;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.email-radio, .phone-radio{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.email-radio {
+  margin-right: 2rem;
+}
+
+
+
+.form-unit__row{
+    display: inline-flex;
+    justify-content: center;
+}
+
+
+input, select, textarea, .form-btn{
+    display: block;
+    width: 100%;
+    padding: .25rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: .25rem;
+
+}
+
+#message::placeholder {
+  color: black; 
+}
+
+.terms-link{
+    color: var(--secondary-light);
+}
+
+
+.full-width-label{
+    display: block;
+    width: 100%;
+    font-size: .875rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+}
+
+/* redone contact page with no form <------------------ */
+
+.support-content{
+  background: linear-gradient(to bottom, var(--shade-three), var(--shade-one)); 
+  width: 100%;
+  height: 100vh;
+}
+
+.support-content .container{
+  
+  padding-top: var(--mobile-pd-top-cont);
+  height: 80%;
+}
+
+.support-case-gd2{
+ 
+}
+
+.support-case{
+  text-align: center;
+  color: white;
+  margin: 0.1rem;
+}
+
+.support-case p{
+  font-size: var(--mobile-para);
+}
+
+.support__h1{
+   color: white;
+   font-size: var(--sm);
+   padding: 0;
+   margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.support-case__logos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+@media only screen and (min-width: 45em){
+  .support-content .container{
+    padding-top: var(--pc-pd-top-cont);
+  }
+
+  .support__btn{
+    padding: var(--pc-btn);
+    font-size: var(--lg);
+  }
+
+  .support__h1{
+     font-size: var(--xlg);
+  }
+
+  .support-case p{
+    font-size: var(--sm);
+  }
+
+  .support-case{
+    margin: 4rem;
+  }
+
+  .support-case-gd2{
+      padding: 0;
+      margin: 2rem;
+  }
+
+
+} 
+
+/*----------- CODE TO IMPLEMENT BELOW -----------*/
+
+/* for styles, this make it easier  */
+
+ fieldset {
+    display: contents;
+    padding: 0;
+    margin: 0;
+    border: none;
+} 
+
+label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+
+}
+
+.radio-grid{
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: subgrid;   
+} 
+
+.form-btn{
+  border: none;
+  margin-top: 1rem;
+  padding: var(--mobile-btn);
+  font-size: var(--sm);
+  background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
+  box-shadow: var(--black-box-shadow);
+}
+
+.dont-have-account__btn{
+
+}
+
+.dont-have-account__btn:hover,
+.dont-have-account__btn:focus{
+    cursor: pointer;
+}
+
+
+
+/* ---------- Media Queries ---------- */
+
+@media only screen and (min-width: 45em){
+   
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    
+      .full {
+        grid-column: 1 / -1;
+      }
+
+     
+      .form-btn{
+        padding: var(--pc-btn);
+        font-size: var(--lg);
+        margin-top: 1.5rem;
+      }
+
+}

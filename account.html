@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIKE | OFF-WHITE Home</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Mono:wght@100&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+      
+</head>
+<body>
+ <!------------- Skip links ---------------->
+    <ul class="skip-links">
+        <li>
+        <a class="skip-links__link" href="#nav">Skip to main navigation</a>
+        </li>
+        <li>
+        <a class="skip-links__link" href="#main">Skip to main content</a>
+        </li>
+    
+    </ul>
+
+          <!------------- Search Bar ---------------->
+          <div class="search-bar flex-center-row ">
+       
+            <div class="container ">
+                <a class="search-bar-exit__btn flex-align-self-center"><i id="exit-icon" class="material-icons">close</i></a>
+                <div class="search-bar__logos flex-center-row">
+                  <img class="search-bar__img" src="./content/social-media-logos/nike ow white extra.png" alt="adventure-logo">
+                  <img class="search-bar__img2" src="./content/social-media-logos/off white text logo.png" alt="off white text logo">
+                </div>
+                <input type="text" placeholder="Search" class="search-input">
+            </div>
+         </div>
+    
+
+ <!------------- NAVBAR ---------------->
+ <a class="nav-mobile-menu" class="link"><i id="burger-icon" class="material-icons">menu</i></a>
+    <nav id="nav" class="navbar store-navbar">
+        <div class="container">
+            
+            <header class="logo-head-div">
+                <a class="nav-logo" href="index.html">
+                    <img src="./content/social-media-logos/nike ow white extra.png" alt="adventure-logo">
+                    <img src="./content/social-media-logos/off white logo white.png" alt="adventure-logo">
+                </a>
+            </header>
+
+        <ul class="nav-list nav-list-main">
+                <li><a class="link" href="index.html">Home</a></li>
+                <li><a class="link" href="store.html">Store</a></li>
+                <li><a class="link" href="#">SALE</a></li>
+                <li><a class="link" href="#">Contact Us</a></li> 
+        </ul>
+        <ul class="nav-list nav-list-secondary">
+                <li><a id="search-icon" class="link"><i class="material-icons">search</i></a></li>
+                <li><a href="cart.html" id="cart-icon" class="link"><i class="material-icons">shopping_cart</i></a></li>
+                <li><a id="account-icon" class="link"><i class="material-icons">account_circle</i></a></li>
+            </ul>
+   
+        </div>
+    </nav>
+
+    <div class="account-drop-down ">
+        <div class="drop-down__content flex-center-column">
+            <a class="link" id="login-link"  href="account.html?id=login-link">Login</a>
+            <a class="link" id="register-link" href="account.html?id=register-link">Register</a>
+            <a class="link" id="settings-link" href="account.html?id=settings-link">Settings</a>
+        </div>
+      </div>
+
+
+     <!------------- Main ---------------->
+
+     <main id="account-main">
+
+        <!------------- Account Section ---------------->
+        <section id="account-page" class="account-content" tabindex="0">
+            
+            <div class="container container--text">
+                 
+               <!-------------- Login Form ------------------>
+                  <div id="login" class="login__wrap ">
+                    <form action="#"  class="login__form">
+                        <div class="form-grid">
+                          <fieldset>
+        
+                            <!-- title -->
+                            <legend>
+                                <h1 class="login__title">Login</h1>
+                            </legend>
+                        
+        
+                            <!-- Name -->
+                            <div class="form-unit  full">
+                                <label class="full-width-label" for="username">Username*</label>
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    name="username" 
+                                    autofocus
+                                    required
+                                    aria-label="full name input"
+                                    >
+                            </div>
+
+
+                                <!-- Name -->
+                                <div class="form-unit  full">
+                                    <label class="full-width-label" for="password">Password*</label>
+                                    <input 
+                                        type="password" 
+                                        id="password" 
+                                        name="password" 
+                                        autofocus
+                                        required
+                                        aria-label="full name input"
+                                        >
+                                </div>
+        
+                            <a class="dont-have-account__btn">Don't Have An Account ?</a>
+     
+                            <!-- Submit Button -->
+                            <div class="form-unit full">
+                                <input  
+                                    type="submit" 
+                                    class="form-btn" 
+                                    value="Login">
+                            </div>
+                        </fieldset>
+        
+                    </form>
+                 </div>
+              </div>
+
+        <!-------------- Register Form ------------------>
+        <div class="register-container container container--text ">
+            
+                 <div id="register" class="login__wrap register__wrap ">
+
+                    <form action="#"  class="register__form">
+                        <div class="form-grid">
+                          <fieldset>
+  
+                            <!-- title -->
+                            <legend>
+                                <h1 class="login__title">Register</h1>
+                            </legend>
+                   
+  
+                            <!-- Name -->
+                            <div class="form-unit  full">
+                                <label class="full-width-label" for="fName">Full Name*</label>
+                                <input 
+                                    type="text" 
+                                    id="fName" 
+                                    name="fName" 
+                                    autofocus
+                                    required
+                                    aria-label="full name input"
+                                    >
+                            </div>
+
+                                 <!-- username -->
+                                 <div class="form-unit  full">
+                                    <label class="full-width-label" for="register-username">Username*</label>
+                                    <input 
+                                        type="text" 
+                                        id="register-username" 
+                                        name="register-username" 
+                                        autofocus
+                                        required
+                                        aria-label="register username input"
+                                        >
+                                </div>
+
+
+                                <!-- password -->
+                                <div class="form-unit  full">
+                                 <label class="full-width-label" for="register-password">Password*</label>
+                                <input 
+                                    type="password" 
+                                    id="register-password" 
+                                    name="register-password" 
+                                    autofocus
+                                    required
+                                    aria-label="register password input"
+                                    >
+                               </div>
+
+                                   <!-- confirm password -->
+                                   <div class="form-unit  full">
+                                    <label class="full-width-label" for="confirm-password">Confirm Password*</label>
+                                   <input 
+                                       type="password" 
+                                       id="confirm-password" 
+                                       name="confirm-password" 
+                                       autofocus
+                                       required
+                                       aria-label="register confirm password input"
+                                       >
+                                  </div>
+  
+                            <!-- Email & Phone  -->
+                      
+                                <label class="full-width-label" for="email">Email*  <input  
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required
+                                    aria-label="email input"
+                                    >
+                                </label>
+  
+                                <label class="full-width-label" for="tel">Phone*  <input 
+                                    type="tel" 
+                                    id="tel" 
+                                    name="tel" 
+                                    required
+                                    aria-label="phone input"
+                                    >
+                                </label>
+                       
+                       
+                      
+  
+                            <!-- Preferred Contact Method -->
+                            <div class="form-unit"> 
+                                <h2 class="full-width-label">Preferred Contact Method</h2>
+                                 <div class="form-unit__row">
+  
+                              
+                                    <label class="email-radio" for="email-radio">Email  <input 
+                                        type="radio" 
+                                        id="email-radio" 
+                                        name="contact"
+                                        aria-label="email radio checkbox"
+                                        >
+                                    </label>
+  
+                              
+                                    <label class="phone-radio" for="tel-radio">Phone  <input 
+                                        type="radio" 
+                                        id="tel-radio" 
+                                        name="contact"
+                                        aria-label="phone radio checkbox"
+                                        >
+                                    </label>
+                               
+                                </div>
+                            </div>
+  
+                            <!-- Submit Button -->
+                            <div class="form-unit full">
+                                <input  
+                                    type="submit" 
+                                    class="form-btn" 
+                                    value="Register">
+                            </div>
+                        </fieldset>
+  
+                    </form>
+                 </div>
+             </div>
+            <!-------------- Settings Form ------------------>
+            <div class="settings-container container container--text ">
+            
+                <div id="settings" class="login__wrap settings__wrap ">
+
+                   <form action="#"  class="settings__form">
+                       <div class="form-grid">
+                         <fieldset>
+ 
+                           <!-- title -->
+                           <legend>
+                               <h1 class="login__title">Settings</h1>
+                           </legend>
+
+                        </fieldset>
+                    </form>
+                 </div>
+             </div>
+      </section>
+
+  
+<!------------- Footer  ---------------->
+    <footer class="store-footer">
+        <div class="container">
+            <a class="footer__logo" href="/">
+                <img src="./content/social-media-logos/nike-offwhite-white.png" alt="signature logo" class="footer__icon">
+            </a>
+
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li><a class="footer__link" href="index.html">Home</a></li>
+                    <li><a class="footer__link" href="store.html">Store</a></li>
+                    <li><a class="footer__link" href="#">SALE</a></li>
+                    <li><a class="footer__link" href="#">Contact Us</a></li> 
+                </ul>
+            </nav>
+
+            <div class="footer-small-links">
+                <small class="footer__copyright">
+                    &copy; 2023 | Website Created By Kieran Poropat
+                </small>
+            <div class="footer__copyright2">
+                <small><a target="_blank" href="https://twitter.com/OffWht"><img class="small-media-logo" src="./content/social-media-logos/white twitter.png" alt="twitter logo"></a></small>
+                <small><a target="_blank" href="https://www.instagram.com/off____white/?hl=en"><img class="small-media-logo" src="./content/social-media-logos/white ig.png" alt="instagram logo"></a></small>
+            </div>
+            </div>
+            
+        </div>
+    </footer>
+
+</main>
+
+<!-- <a href="#page" class="to-top">To Top</a> -->
+
+    <script type="module" src="./js/main.js"></script>
+    
+</body>
+</html>

@@ -11,39 +11,64 @@
   const homePage = window.location.pathname.includes('index.html');
   const storePage = window.location.pathname.includes('store.html');
   const cartPage = window.location.pathname.includes('cart.html');
+  const accountPage = window.location.pathname.includes('account.html');
 
+// drop down links
+  const loginLink = document.querySelector("#login-link");
+  const registerLink = document.querySelector("#register-link");
+  const settingsLink = document.querySelector("#settings-link");
+ 
 // show mobile nav
- let mobileNavBarMenuBtn = document.querySelector('.nav-mobile-menu');
- let navBar = document.querySelector('.navbar');
+  let mobileNavBarMenuBtn = document.querySelector('.nav-mobile-menu');
+  let navBar = document.querySelector('.navbar');
 
 // -------------> DOM Content Loaded Functions <--------------
 
 document.addEventListener('DOMContentLoaded', () => {
  
-  
+   // all pages
     document.querySelector(".nav-list li #search-icon").addEventListener('click', searchBar)
     document.querySelector(".search-bar-exit__btn").addEventListener('click', exitSearchBar)
     showAccountDropDown();
+    
+    // console.log(loginLink)
+    let urlSearchParamsExample = new URLSearchParams(window.location.search);
+    console.log(urlSearchParamsExample.entries())
   
-  if(homePage){
+  if(homePage){  // home
     homeMain.addEventListener('scroll', scrollPage);
 
-  } else if(storePage){
+  } else if(storePage){  // store 
       showShopSneakers();
       storeContainer.addEventListener("click", showSelectedSneaker)
       document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
       document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
       updateQuantity();
     } 
-    else if(cartPage){
+    else if(cartPage){  // cart 
       updateCartFromLocalStorage();
       updateQuantity();
       document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
       document.querySelector(".purchaseBtn").addEventListener('click', totalWithTax)
       checkCartLength();
-    }
+    } else if(accountPage){ // account page
+          // can pass infor from your url into the searchParams object and it creates an object out of it
+          const urlParams = new URLSearchParams(window.location.search);
+          const clickedLinkId = urlParams.get('id');
+          // console.log(clickedLinkId);
+    
+        if(clickedLinkId === loginLink.id){
+          showLoginForm();
+          document.querySelector(".dont-have-account__btn").addEventListener("click", ()=> {
+            showRegisterForm();
+          })
+        } else if(clickedLinkId === registerLink.id){
+          showRegisterForm();
+        } else if(clickedLinkId === settingsLink.id){
+          showSettingsForm();
+        }
+      }   
 
- 
 });
 
 // -------------> SearchBar Function <-------------
@@ -103,10 +128,31 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.drop-down__content').classList.toggle('drop-down-active');
       
     });
-
- 
-
  }
+
+  function showLoginForm(){
+    document.getElementById('login').classList.add('visible-grid');
+    document.getElementById('login').classList.remove('hidden');
+    document.getElementById('register').classList.add('hidden');
+    document.getElementById('settings').classList.add('hidden');
+    console.log("login function running");
+  }
+
+  function showRegisterForm(){
+    document.getElementById('register').classList.add('visible-grid');
+    document.getElementById('register').classList.remove('hidden');
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('settings').classList.add('hidden');  
+    console.log("register function running");
+  }
+
+  function showSettingsForm(){
+    document.getElementById('settings').classList.add('visible-grid');
+    document.getElementById('settings').classList.remove('hidden');
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('register').classList.add('hidden');  
+    console.log("settings function running");
+  }
 
 // mobile navbar
 
@@ -121,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', () => {
       // Close the mobile navbar when a link is clicked
       navBar.classList.remove('navbar-active');
+      
       if(link.id !== "account-icon"){
         document.querySelector('.drop-down__content').classList.remove('drop-down-active');
       }
@@ -135,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function scrollPage(){
     let winScroll = homeMain.scrollTop;
     let height1 = homeMain.scrollHeight - document.documentElement.clientHeight;
-    let percent = (winScroll / height1) * 100
+    let percent = (winScroll / height1) * 100;
 
     let pll1 = document.querySelector(".pll-1")
     let pll2 = document.querySelector(".pll-2")
@@ -165,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
   }
+  
 
     // -------------> Clear NavCart and Local Storage <--------------
 
