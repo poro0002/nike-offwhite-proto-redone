@@ -435,8 +435,14 @@ section{
     .banner__btn:hover,
     .banner__btn:focus,
     .form-btn:hover,
-    .form-btn:focus{
-      transition: ease-in-out 0.3s !important;
+    .form-btn:focus,
+    #login-link:hover,
+    #login-link:focus,
+    #register-link:hover,
+    #register-link:focus,
+    #settings-link:hover,
+    #settings-link:focus{
+      transition: ease-in-out 0.1s !important;
       transform: scale(1.03) !important;
       filter: drop-shadow(0 0.25rem 0.5rem #000000);
       cursor: pointer;
@@ -657,7 +663,7 @@ section{
   @media only screen and (min-width: 45em){
 
       .drop-down__content{
-        
+        position: fixed;
         gap: 1rem;
         top: 7%;
         left: calc(100% - 10rem);
@@ -2023,7 +2029,6 @@ section{
     }
 
     .cart-container{
-
       padding-top: var(--mobile-pd-top-cont);
       padding: 2rem;
    
@@ -2096,7 +2101,7 @@ section{
     }
 
 
-     /* ----------------------------------------------- */
+/* ----------------------------------------------- */
 /*------------------ Login ------------------*/
 /* ----------------------------------------------- */
 
@@ -2206,84 +2211,8 @@ input, select, textarea, .form-btn{
     
 }
 
-/* redone contact page with no form <------------------ */
 
-.support-content{
-  background: linear-gradient(to bottom, var(--shade-three), var(--shade-one)); 
-  width: 100%;
-  height: 100vh;
-}
-
-.support-content .container{
-  
-  padding-top: var(--mobile-pd-top-cont);
-  height: 80%;
-}
-
-.support-case-gd2{
- 
-}
-
-.support-case{
-  text-align: center;
-  color: white;
-  margin: 0.1rem;
-}
-
-.support-case p{
-  font-size: var(--mobile-para);
-}
-
-.support__h1{
-   color: white;
-   font-size: var(--sm);
-   padding: 0;
-   margin: 0;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
-.support-case__logos{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
-
-@media only screen and (min-width: 45em){
-  .support-content .container{
-    padding-top: var(--pc-pd-top-cont);
-  }
-
-  .support__btn{
-    padding: var(--pc-btn);
-    font-size: var(--lg);
-  }
-
-  .support__h1{
-     font-size: var(--xlg);
-  }
-
-  .support-case p{
-    font-size: var(--sm);
-  }
-
-  .support-case{
-    margin: 4rem;
-  }
-
-  .support-case-gd2{
-      padding: 0;
-      margin: 2rem;
-  }
-
-
-} 
-
-/*----------- CODE TO IMPLEMENT BELOW -----------*/
+/*----------- Form -----------*/
 
 /* for styles, this make it easier  */
 

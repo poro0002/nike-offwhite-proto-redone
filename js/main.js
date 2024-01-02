@@ -32,36 +32,37 @@ document.addEventListener('DOMContentLoaded', () => {
     showAccountDropDown();
     
     // console.log(loginLink)
-    let urlSearchParamsExample = new URLSearchParams(window.location.search);
-    console.log(urlSearchParamsExample.entries())
+    
   
-  if(homePage){  // home
+  if(homePage){  // Home
     homeMain.addEventListener('scroll', scrollPage);
 
-  } else if(storePage){  // store 
+  } else if(storePage){  // Store 
       showShopSneakers();
       storeContainer.addEventListener("click", showSelectedSneaker)
       document.querySelector('.nav-cart-exit__btn').addEventListener('click', exitNavCart)
       document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
       updateQuantity();
     } 
-    else if(cartPage){  // cart 
+    else if(cartPage){  // Cart 
       updateCartFromLocalStorage();
       updateQuantity();
       document.querySelector(".removeBtn").addEventListener('click', removeAllItems)
       document.querySelector(".purchaseBtn").addEventListener('click', totalWithTax)
       checkCartLength();
-    } else if(accountPage){ // account page
-          // can pass infor from your url into the searchParams object and it creates an object out of it
+    } else if(accountPage){ // Account page
+       
+      //  URLSearchParams constructor takes a string/URL that contains the query parameters (everything after the "?" character), parses this string into key-value pairs, making it easy to work with 
+          // this is a lot better than using string methods on query strings 
           const urlParams = new URLSearchParams(window.location.search);
           const clickedLinkId = urlParams.get('id');
-          // console.log(clickedLinkId);
+        // console.log(clickedLinkId);
     
         if(clickedLinkId === loginLink.id){
           showLoginForm();
-          document.querySelector(".dont-have-account__btn").addEventListener("click", ()=> {
-            showRegisterForm();
-          })
+            document.querySelector(".dont-have-account__btn").addEventListener("click", ()=> {
+              showRegisterForm();
+            });
         } else if(clickedLinkId === registerLink.id){
           showRegisterForm();
         } else if(clickedLinkId === settingsLink.id){
@@ -409,6 +410,7 @@ function showSelectedSneaker(e){
             let dataIdToAdd = itemToAdd.getAttribute('data-id');
             let selectedSneakerSize = itemToAdd.querySelector(".sneaker-card__size").value;
             updateCartFromLocalStorage(selectedSneakerSize);
+            
           // Check if the item is already in the cart by matching the data-ids/ array methods return truthy falsy conditions
               let isItemInCart = Array.from(navCartLiContainer.children).some(cartItem => {
                 return cartItem.getAttribute('data-id') === dataIdToAdd;
@@ -419,8 +421,9 @@ function showSelectedSneaker(e){
               // some looks for any of the keys to match and returns boolean
               let storageIncludes = Object.keys(localStorage).some(key => key.includes(itemToAdd.getAttribute('data-id')));
               let cartItemObj;
-           //if the item is not in cart and storage doesnt include it 
-            if (!isItemInCart && !storageIncludes) {
+           
+            //if the item is not in cart and storage doesn't include it 
+              if(!isItemInCart && !storageIncludes) {
                 
                 let clonedItem = itemToAdd.cloneNode(true);
                 clonedItem.classList.add('nav-cart__item');
@@ -565,7 +568,6 @@ function showSelectedSneaker(e){
         }
          
         cartItemDiv.querySelector("label strong").textContent = newSize; 
-       
        
 
         if(storePage){
