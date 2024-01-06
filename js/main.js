@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
       checkCartLength();
     } else if(accountPage){ // Account page
        
+        
+        
+
       //  URLSearchParams constructor takes a string/URL that contains the query parameters (everything after the "?" character), parses this string into key-value pairs, making it easy to work with 
           // this is a lot better than using string methods on query strings 
           const urlParams = new URLSearchParams(window.location.search);
@@ -132,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
  }
 
   function showLoginForm(){
+    loginForm.addEventListener("submit", loginWithLocalStorageData);
+
     document.getElementById('login').classList.add('visible-grid');
     document.getElementById('login').classList.remove('hidden');
     document.getElementById('register').classList.add('hidden');
@@ -140,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showRegisterForm(){
+    registerForm.addEventListener("submit", registerDataToLocalStorage);
+
     document.getElementById('register').classList.add('visible-grid');
     document.getElementById('register').classList.remove('hidden');
     document.getElementById('login').classList.add('hidden');
@@ -714,6 +721,130 @@ function showSelectedSneaker(e){
        
   }
 
+// -------------------------------- Account Page ---------------------------------
+
+// <-- Register Vars -->
+let registerForm = document.querySelector(".register__form");
+let regNameInput = document.querySelector("#fName");
+let regUserInput = document.querySelector("#register-username");
+let regPassInput = document.querySelector("#register-password");
+let regConfirmPassInput = document.querySelector("#confirm-password");
+let regEmailInput = document.querySelector("#email");
+let regPhoneInput = document.querySelector("#tel");
 
 
 
+// -------------> Create a LocalStorage Object With The Register Data <--------------
+
+let userCount = 0;
+
+ function registerDataToLocalStorage(e){
+  e.preventDefault();
+
+  // if(regPhoneInput.length > 0){
+  //   inputValue = inputValue.match(/^(\d{1,3})(\d{1,3})?(\d{1,4})?/);
+  // }
+  
+  // Rule Object 
+  // if you have done the condition correct maybe make it so the border of the corresponding input is green / if not make it red
+  const registerFormRules = [
+      {nameRules:[
+        {condition: value => {
+           let firstLastCount = value.split(/\s+/);
+           return firstLastCount.length >= 1;
+        }, message: "you must provide a first and last name"}
+      ]},
+      {passwordRules:[
+      { condition: value => value.length >= 8, message: "Password must be at least 8 characters long." },
+      { condition: value => /[a-z]/.test(value), message: "Password must contain at least one lowercase letter." },
+      { condition: value => /[A-Z]/.test(value), message: "Password must contain at least one uppercase letter." },
+      { condition: value => /\d/.test(value), message: "Password must contain at least one digit." },
+      { condition: value => /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value), message: "Password must contain at least one of the symbols." },
+    ],},
+      {emailRules:[
+        {condition: value => /^[^ ]+@[a-zA-Z0-9.-]+\.[a-z]{2,3}$/.test(value), 
+        message: "Must be a valid Email", },
+      ]},
+      {phoneRules:[
+          {condition: value => {
+            return value.length >= 10;
+        }, message: "you must provide a valid phone number"}
+      ]},
+      {usernameRules:[
+        {condition: value => {
+          return value.length >= 6;
+      }, message: "username must be at least 6 digits long" }
+    ]},
+      
+    ];
+  
+  // checks if the form was filled out properly before proceeding  
+    if (registerForm.checkValidity()) {
+
+      
+      let currentUser = {
+          name: regNameInput.value,
+          username: regUserInput.value,
+          password: regConfirmPassInput.value,
+          email: regEmailInput.value,
+          phone: regPhoneInput.value
+        };
+
+        const nameCondition = registerFormRules[0].nameRules[0].condition;
+        const passwordRuleConditions = registerFormRules[1].passwordRules.map(rule => rule.condition);
+        const emailCondition = registerFormRules[2].emailRules[0].condition;
+        const phoneCondition = registerFormRules[3].phoneRules[0].condition;
+        const usernameCondition = registerFormRules[4].usernameRules[0].condition;
+       
+        console.log("Name condition:", nameCondition(regNameInput.value));
+        console.log("Password conditions:", passwordRuleConditions.map(condition => condition(regConfirmPassInput.value)));
+        console.log("Email condition:", emailCondition(regEmailInput.value));
+        console.log("Phone condition:", phoneCondition(regPhoneInput.value));
+        console.log("Username condition:", usernameCondition(regUserInput.value));
+
+
+
+
+        // console.log(passwordRuleConditions)
+        // The every method checks if every condition is returning true/ "all are met"
+          // had to create a map of the password rules so the every method would work 
+        let confirmPass = passwordRuleConditions.every(condition => condition(regConfirmPassInput.value));
+
+        if(nameCondition(regNameInput.value) && confirmPass && emailCondition(regEmailInput.value) && phoneCondition(regPhoneInput.value) && usernameCondition(regUserInput.value)){
+          alert("everything follows my rules"); 
+          localStorage.setItem(`user${userCount++}`, JSON.stringify(currentUser))
+          document.querySelector(".register__form fieldset").innerHTML = `<h2>Account Created !</h2> <a class="register-login__link">Login Here</a>`;
+            document.querySelector(".register-login__link").addEventListener("click", showLoginForm);
+
+        }  else{
+          alert("please try again")
+        }    
+      }
+    
+ }
+
+ // -------------> Loop Through the Local Storage user Objects Till You Find A Match <--------------
+
+  // <-- login Vars -->
+  let loginForm = document.querySelector(".login__form");
+  let loginUserInput = document.querySelector("#username");
+  let loginPassInput = document.querySelector("#password");
+
+  function loginWithLocalStorageData(){
+   
+    for (let key in localStorage) {
+      if(key.startsWith("user")){
+        let user = JSON.parse(localStorage.getItem(key));
+
+          if(user.username === loginUserInput.value && user.password === loginPassInput.value){
+            alert("You Have Successfully Logged In"); 
+            document.querySelector(".login__form fieldset").innerHTML = `<h2>Login Successful !</h2> <a href="store.html" class="login-store__link">Enter Store</a>`;
+            break; // get out of the loop once a match is found
+          }else{
+            alert("there was something wrong with the login information"); 
+          }
+      }
+      
+    }
+
+  }

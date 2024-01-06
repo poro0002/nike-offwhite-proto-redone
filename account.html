@@ -92,7 +92,8 @@
                           <fieldset>
         
                             <!-- title -->
-                            <legend>
+                            <legend class="flex-center-column">
+                                <i class="material-icons">person</i>
                                 <h1 class="login__title">Login</h1>
                             </legend>
                         
@@ -130,7 +131,7 @@
                             <div class="form-unit full">
                                 <input  
                                     type="submit" 
-                                    class="form-btn" 
+                                    class="form-btn login-btn" 
                                     value="Login">
                             </div>
                         </fieldset>
@@ -142,14 +143,15 @@
         <!-------------- Register Form ------------------>
         <div class="register-container container container--text ">
             
-                 <div id="register" class="login__wrap register__wrap ">
+                 <div id="register" class="login__wrap register__wrap">
 
                     <form action="#"  class="register__form">
                         <div class="form-grid">
                           <fieldset>
   
                             <!-- title -->
-                            <legend>
+                            <legend class="flex-center-column">
+                                <i class="material-icons">person_add</i>
                                 <h1 class="login__title">Register</h1>
                             </legend>
                    
@@ -161,6 +163,7 @@
                                     type="text" 
                                     id="fName" 
                                     name="fName" 
+                                    value="Kieran Poropat"
                                     autofocus
                                     required
                                     aria-label="full name input"
@@ -174,6 +177,7 @@
                                         type="text" 
                                         id="register-username" 
                                         name="register-username" 
+                                        value="kiirynn"
                                         autofocus
                                         required
                                         aria-label="register username input"
@@ -188,6 +192,7 @@
                                     type="password" 
                                     id="register-password" 
                                     name="register-password" 
+                                    value="Workharder95*"
                                     autofocus
                                     required
                                     aria-label="register password input"
@@ -201,6 +206,7 @@
                                        type="password" 
                                        id="confirm-password" 
                                        name="confirm-password" 
+                                       value="Workharder95*"
                                        autofocus
                                        required
                                        aria-label="register confirm password input"
@@ -208,30 +214,32 @@
                                   </div>
   
                             <!-- Email & Phone  -->
-                      
+                            <div class="form-unit  full">
                                 <label class="full-width-label" for="email">Email*  <input  
                                     type="email" 
                                     id="email" 
-                                    name="email" 
+                                    name="email"
+                                    value="kieran.poropat@gmail.com" 
                                     required
                                     aria-label="email input"
                                     >
                                 </label>
-  
+                            </div>
+                            <div class="form-unit  full">
                                 <label class="full-width-label" for="tel">Phone*  <input 
                                     type="tel" 
                                     id="tel" 
                                     name="tel" 
+                                    value="17059350869" 
                                     required
                                     aria-label="phone input"
+                                    maxlength="12"
                                     >
                                 </label>
-                       
-                       
-                      
+                            </div>
   
-                            <!-- Preferred Contact Method -->
-                            <div class="form-unit"> 
+                         <!-- Preferred Contact Method -->
+                            <!-- <div class="form-unit"> 
                                 <h2 class="full-width-label">Preferred Contact Method</h2>
                                  <div class="form-unit__row">
   
@@ -254,13 +262,13 @@
                                     </label>
                                
                                 </div>
-                            </div>
+                            </div> -->
   
                             <!-- Submit Button -->
                             <div class="form-unit full">
                                 <input  
                                     type="submit" 
-                                    class="form-btn" 
+                                    class="form-btn register-btn" 
                                     value="Register">
                             </div>
                         </fieldset>
@@ -278,7 +286,8 @@
                          <fieldset>
  
                            <!-- title -->
-                           <legend>
+                           <legend class="flex-center-column">
+                               <i class="material-icons">settings</i>
                                <h1 class="login__title">Settings</h1>
                            </legend>
 

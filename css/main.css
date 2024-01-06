@@ -2122,6 +2122,10 @@ section{
     padding-bottom: 3rem;
 }
 
+.account-content .container{
+  padding-top: var(--mobile-pd-top-cont);
+}
+
 .login__wrap{
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(3rem);
@@ -2132,7 +2136,7 @@ section{
 }
 
 .form-grid{
-    padding: 3rem 2.5rem;
+    padding: 2.5rem;
     display: grid;
     --cols: 1;
     grid-template-columns: repeat(var(--cols), 1fr);
@@ -2141,7 +2145,8 @@ section{
 
 .login__title{
     margin-bottom: 0;
-    font-size: 2.5rem;
+    font-size:var(--lg);
+
 }
 
 input, select, textarea {
@@ -2173,7 +2178,7 @@ input, select, textarea {
 }
 
 .email-radio {
-  margin-right: 2rem;
+  margin-right: .5rem;
 }
 
 
@@ -2205,10 +2210,18 @@ input, select, textarea, .form-btn{
 .full-width-label{
     display: block;
     width: 100%;
-    font-size: .875rem;
     font-weight: bold;
     text-transform: uppercase;
-    
+    font-size: var(--xsm);
+}
+
+
+legend .material-icons {
+  font-size: var(--xxlg);
+}
+
+label{
+  
 }
 
 
@@ -2238,7 +2251,7 @@ label {
 
 .form-btn{
   border: none;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   padding: var(--mobile-btn);
   font-size: var(--sm);
   background: linear-gradient(to left, var(--primary-color2), var(--primary-color));
@@ -2256,16 +2269,27 @@ label {
 
 
 
-/* ---------- Media Queries ---------- */
+
+
+/* ---------- Form Media Queries ---------- */
 
 @media only screen and (min-width: 45em){
+
+  .account-content .container{
+    padding-top: var(--pc-pd-top-cont);
+  }
    
     .form-grid {
         grid-template-columns: repeat(2, 1fr);
+        padding: 3rem 2.5rem;
       }
     
       .full {
         grid-column: 1 / -1;
+      }
+
+      .full-width-label{
+       font-size: var(--sm);
       }
 
      
@@ -2274,5 +2298,26 @@ label {
         font-size: var(--lg);
         margin-top: 1.5rem;
       }
+
+      .login__title{
+        margin-bottom: 0;
+        font-size:var(--xlg);
+    }
+
+    legend{
+      grid-column: span 2;
+    }
+
+
+    legend .material-icons {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .email-radio {
+      margin-right: 2rem;
+    }
+
+   
 
 }
