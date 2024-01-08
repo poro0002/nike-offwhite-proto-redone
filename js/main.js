@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showLoginForm(){
     loginForm.addEventListener("submit", loginWithLocalStorageData);
+    document.querySelector(".dont-have-account__btn").addEventListener("click", showRegisterForm)
 
     document.getElementById('login').classList.add('visible-grid');
     document.getElementById('login').classList.remove('hidden');
@@ -642,7 +643,7 @@ function showSelectedSneaker(e){
               if (item.startsWith('localSneaker')) {
                 // Retrieve the HTML from local storage
                 let storedString = localStorage.getItem(item);
-                let storedObject = JSON.parse(storedString);
+                let storedObject = JSON.parse(storedString); 
 
                   if(navCartItemDataId === storedObject.dataId){
                     quantityInput.value = storedObject.quantity; // here
@@ -723,24 +724,30 @@ function showSelectedSneaker(e){
 
 // -------------------------------- Account Page ---------------------------------
 
-// <-- Register Vars -->
+// globals
 let registerForm = document.querySelector(".register__form");
-let regNameInput = document.querySelector("#fName");
-let regUserInput = document.querySelector("#register-username");
-let regPassInput = document.querySelector("#register-password");
-let regConfirmPassInput = document.querySelector("#confirm-password");
-let regEmailInput = document.querySelector("#email");
-let regPhoneInput = document.querySelector("#tel");
+let loginForm = document.querySelector(".login__form");
 
 
 
 // -------------> Create a LocalStorage Object With The Register Data <--------------
 
-let userCount = 0;
 
  function registerDataToLocalStorage(e){
-  e.preventDefault();
+    // <-- Register Vars -->
+  let regNameInput = document.querySelector("#fName");
+  let regUserInput = document.querySelector("#register-username");
+  let regPassInput = document.querySelector("#register-password");
+  let regConfirmPassInput = document.querySelector("#confirm-password");
+  let regEmailInput = document.querySelector("#email");
+  let regPhoneInput = document.querySelector("#tel");
 
+  e.preventDefault();
+ 
+  
+
+  let userCountLocal = JSON.parse(localStorage.getItem('userCountLocal')) || 0;
+  userCountLocal++;
   // if(regPhoneInput.length > 0){
   //   inputValue = inputValue.match(/^(\d{1,3})(\d{1,3})?(\d{1,4})?/);
   // }
@@ -809,13 +816,33 @@ let userCount = 0;
         // The every method checks if every condition is returning true/ "all are met"
           // had to create a map of the password rules so the every method would work 
         let confirmPass = passwordRuleConditions.every(condition => condition(regConfirmPassInput.value));
+        
+        // some method checks if at least one item in the array  satisfies the condition we are comparing
+        // takes an object and returns and array of each one
+          let accountExists = Object.keys(localStorage).some(key => {
+            if (key.startsWith("user")) {
+              let user = JSON.parse(localStorage.getItem(key));
+              return user.email === regEmailInput.value || user.phone === regPhoneInput.value ;
+            }
+            return false;
+          });
+          
+       
+        // checks for existing account first
+        if(accountExists){
+           alert("that email and or phone number is already registered");
+        }
+       else if(nameCondition(regNameInput.value) && confirmPass && emailCondition(regEmailInput.value) && phoneCondition(regPhoneInput.value) && usernameCondition(regUserInput.value) && !accountExists){
+          alert("everything follows my rules");
+          
+          localStorage.setItem('userCountLocal', userCountLocal);
+          let newUserKey = `user${userCountLocal}`; 
+          
 
-        if(nameCondition(regNameInput.value) && confirmPass && emailCondition(regEmailInput.value) && phoneCondition(regPhoneInput.value) && usernameCondition(regUserInput.value)){
-          alert("everything follows my rules"); 
-          localStorage.setItem(`user${userCount++}`, JSON.stringify(currentUser))
+          localStorage.setItem(newUserKey, JSON.stringify(currentUser))
           document.querySelector(".register__form fieldset").innerHTML = `<h2>Account Created !</h2> <a class="register-login__link">Login Here</a>`;
             document.querySelector(".register-login__link").addEventListener("click", showLoginForm);
-
+            
         }  else{
           alert("please try again")
         }    
@@ -825,13 +852,15 @@ let userCount = 0;
 
  // -------------> Loop Through the Local Storage user Objects Till You Find A Match <--------------
 
-  // <-- login Vars -->
-  let loginForm = document.querySelector(".login__form");
-  let loginUserInput = document.querySelector("#username");
-  let loginPassInput = document.querySelector("#password");
+
 
   function loginWithLocalStorageData(){
-   
+  
+        // <-- login Vars -->
+    let loginUserInput = document.querySelector("#username");
+    let loginPassInput = document.querySelector("#password");
+    let loginSuccess = false;
+    
     for (let key in localStorage) {
       if(key.startsWith("user")){
         let user = JSON.parse(localStorage.getItem(key));
@@ -839,12 +868,22 @@ let userCount = 0;
           if(user.username === loginUserInput.value && user.password === loginPassInput.value){
             alert("You Have Successfully Logged In"); 
             document.querySelector(".login__form fieldset").innerHTML = `<h2>Login Successful !</h2> <a href="store.html" class="login-store__link">Enter Store</a>`;
+            loginSuccess = true;
             break; // get out of the loop once a match is found
-          }else{
-            alert("there was something wrong with the login information"); 
           }
+          else if(loginSuccess === true){
+            window.location.pathname = 'store.html';
+          }
+          
+        
       }
-      
+     
     }
+    if(loginSuccess === false){
+      alert("there was something wrong with the login information, Please Try Again"); 
+      window.location.reload();
+      
+    } 
+ 
 
   }
