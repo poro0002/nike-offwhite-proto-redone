@@ -871,11 +871,7 @@ let loginForm = document.querySelector(".login__form");
             loginSuccess = true;
             break; // get out of the loop once a match is found
           }
-          else if(loginSuccess === true){
             window.location.pathname = 'store.html';
-          }
-          
-        
       }
      
     }
