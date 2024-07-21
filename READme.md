@@ -1,6 +1,6 @@
 # Off-White Sneaker Store
 
-![Alt Text](content/social-media-logos/nike ow white extra.png)
+![Alt Text](content/social-media-logos/nike-offwhite-white.png)
 
 
 Welcome to the Off-White Sneaker Store! This project showcases a modern, interactive sneaker store website designed with a focus on user experience, responsiveness, and visual appeal. Explore the unique features and sections of the site, built to provide an engaging shopping experience.
