@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const options = {
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '5934dcae4emsh53f2cc4849fe19ap102d6ajsne10268c7d327',
+      'X-RapidAPI-Key': '5934dcae4emsh53f2cc4849fe19ap102d6ajsne10268c7d327', // yes i know you shouldn't do this but this app is strictly a front end vanilla JS app. it will be rotated
       'X-RapidAPI-Host': 'the-sneaker-database.p.rapidapi.com'
     }
   };
